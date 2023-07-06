@@ -115,9 +115,8 @@ with st.sidebar:
 with st.container():
     with col1:
         for i in boroughs:
-            
             with st.container():
-                if add_radio = i:
+                if add_radio == i:
                     check_sr = st.checkbox("Shared room")
                     check_pr = st.checkbox("Private room")
                     check_ent = st.checkbox("Entire home/apt")
