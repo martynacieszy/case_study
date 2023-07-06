@@ -224,7 +224,6 @@ def fig_neighborhood_by_brough_rent(airbnb_NY, brough_name):
 import streamlit as st
 from streamlit_jupyter import StreamlitPatcher, tqdm
 StreamlitPatcher().jupyter() 
-gatherUsageStats = false
 
 st.write(""" 
 # My first app 
