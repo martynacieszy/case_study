@@ -116,7 +116,7 @@ with st.container():
     with col1:
         st.write(sales_fig)
 
-sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1]]
+sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1])]
 
 with st.container():
     with col1:
