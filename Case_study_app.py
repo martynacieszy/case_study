@@ -115,12 +115,12 @@ with st.container():
                         st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "", ""))
                         if check_pr:
                             st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", ""))
-                            if check ent:
+                            if check_ent:
                                 st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", "Entire home/apt"))
                     elif check_pr:
                             st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", ""))
-                        if check ent:
+                        if check_ent:
                                 st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", "Entire home/apt"))
-                    elif check ent:
+                    elif check_ent:
                                 st.write(average_price(sales_NY, airbnb_NY, i, "", "", "Entire home/apt"))
 
