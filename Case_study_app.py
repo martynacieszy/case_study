@@ -108,7 +108,19 @@ with st.container():
             check_i = st.checkbox(i)
             with st.container():
                 if check_i:
-                    for j in room_types:
-                        check_j = st.checkbox(j)
-                        st.write(average_price(sales_NY, airbnb_NY, i, j, j+1, j+2))
+                    check_sr = st.checkbox("Shared room")
+                    check_pr = st.checkbox("Private room")
+                    check_ent = st.checkbox("Entire home/apt")
+                    if check_sr:
+                        st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "", ""))
+                        if check_pr:
+                            st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", ""))
+                            if check ent:
+                                st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", "Entire home/apt"))
+                    elif check_pr:
+                            st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", ""))
+                        if check ent:
+                                st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", "Entire home/apt"))
+                    elif check ent:
+                                st.write(average_price(sales_NY, airbnb_NY, i, "", "", "Entire home/apt"))
 
