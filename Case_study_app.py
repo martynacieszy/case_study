@@ -110,7 +110,7 @@ room_types = airbnb_NY["Room Type"].unique()
 with st.container():
     with col1:
         for i in boroughs:
-            check_i = st.radio(i)
+            check_i = st.checkbox(i)
             with st.container():
                 if check_i:
                     check_sr = st.checkbox("Shared room")
