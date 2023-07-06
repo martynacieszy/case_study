@@ -107,9 +107,9 @@ with st.container():
         for i in boroughs:
             check_i = st.checkbox(i)
             with st.container():
-            if check_i:
-                for j in room_types:
-                    check_j = st.checkbox(j)
-                    if check_j:
-                        st.write(average_price(sales_NY, airbnb_NY, i, j, j, j))
+                if check_i:
+                    for j in room_types:
+                        check_j = st.checkbox(j)
+                        if check_j:
+                            st.write(average_price(sales_NY, airbnb_NY, i, j, j, j))
 
