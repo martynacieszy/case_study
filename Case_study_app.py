@@ -83,7 +83,7 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type):
 import streamlit as st
 from streamlit_jupyter import StreamlitPatcher, tqdm
 StreamlitPatcher().jupyter() 
-tab1, tab2, tab3 = st.tabs(3)
+tab1, tab2, tab3 = st.tabs(["Header","Boroughs","Neighborhoods"])
 
 with tab1:
     st.write(""" 
