@@ -8,8 +8,8 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 
-sales_NY = pd.read_csv('sales_NY.csv')
-airbnb_NY = pd.read_csv('airbnb_NY.csv')
+sales_NY = pd.read_json('sales_NY.json')
+airbnb_NY = pd.read_json('airbnb_NY.json')
 
 mean_sales = (sales_NY[['Borough', 'Price Per Square Ft']]
     .groupby('Borough')
