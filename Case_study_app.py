@@ -109,9 +109,14 @@ room_types = airbnb_NY["Room Type"].unique()
 
 with st.sidebar:
     add_radio = st.radio(
-        "Choose borough to see details about neighborhoods:",
+        "Choose borough to see details about its neighborhoods:",
         (sales_NY["Borough"].unique())
     )
+
+    area = st.slider("What is the apartment area you are interested in?",
+                     min_value=min(sales_NY["Gross Square Feet"]), max_value=max(sales_NY["Gross Square Feet"]), step=1)
+
+
 with st.container():
     with col1:
         for i in boroughs:
