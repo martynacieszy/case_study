@@ -11,14 +11,17 @@ import plotly.express as px
 sales_NY = pd.read_json('sales_NY.json')
 airbnb_NY = pd.read_json('airbnb_NY.json')
 
-mean_sales = (sales_NY[['Borough', 'Price Per Square Ft']]
-    .groupby('Borough')
-    .agg('mean'))
-mean_sales.columns = ['Mean price per square ft']
-mean_sales = mean_sales.sort_values('Mean price per square ft', ascending=False)
-mean_sales['Mean price per square ft'] = mean_sales['Mean price per square ft'].round(2)
-sales_fig = px.pie(mean_sales, values = "Mean price per square ft", names = mean_sales.index, 
-             title = "Average price per square feet in apartment in each district of New York")
+    
+def sales_figure(sales_NY):
+    mean_sales = (sales_NY[['Borough', 'Price Per Square Ft']]
+        .groupby('Borough')
+        .agg('mean'))
+    mean_sales.columns = ['Mean price per square ft']
+    mean_sales = mean_sales.sort_values('Mean price per square ft', ascending=False)
+    mean_sales['Mean price per square ft'] = mean_sales['Mean price per square ft'].round(2)
+    sales_fig = px.pie(mean_sales, values = "Mean price per square ft", names = mean_sales.index, 
+                 title = "Average price per square feet in apartment in each district of New York")
+    return sales_fig
 
 def mean_rent_func(airbnb_NY, room_type):
     mean_rent = (airbnb_NY[airbnb_NY['Room Type'] == room_type][['Borough', 'Price']]
@@ -100,7 +103,6 @@ with st.container():
     """)
     
 boroughs = sales_NY["Borough"].unique()
-room_types = airbnb_NY["Room Type"].unique()
 
 with st.sidebar:
     add_radio = st.radio(
@@ -110,7 +112,7 @@ with st.sidebar:
 
     area = st.slider("What is the gross square feet area you are interested in buying?", value=[min(sales_NY["Gross Square Feet"]),max(sales_NY["Gross Square Feet"])],
                      step=1)
-    min_nights = st.slider("Number of minimum nights to rent a room:", value=[min(airbnb_NY["Minimum Nights"]),max(airbnb_NY["Minimum Nights"])],
+    min_nights = st.slider("Number of minimum nights to rent a room/apartment:", value=[min(airbnb_NY["Minimum Nights"]),max(airbnb_NY["Minimum Nights"])],
                      step=1)
 
 sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1])]
@@ -119,7 +121,7 @@ airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0]
 col1, col2 = st.columns(2)
 with st.container():
     with col1:
-        st.write(sales_fig)
+        st.write(sales_fig(sales_NY))
 
 with st.container():
     with col1:
