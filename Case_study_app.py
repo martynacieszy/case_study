@@ -110,13 +110,16 @@ with st.sidebar:
 
     area = st.slider("What is the gross square feet area you are interested in buying?", value=[min(sales_NY["Gross Square Feet"]),max(sales_NY["Gross Square Feet"])],
                      step=1)
+    min_nights = st.slider("Number of minimum nights to rent a room:", value=[min(airbnb_NY["Minimum Nights"]),max(airbnb_NY["Minimum Nights"])],
+                     step=1)
+
+sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1])]
+airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0], airbnb_NY["Minimum Nights"] < min_nights[1])]
 
 col1, col2 = st.columns(2)
 with st.container():
     with col1:
         st.write(sales_fig)
-
-sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1])]
 
 with st.container():
     with col1:
