@@ -109,7 +109,7 @@ room_types = airbnb_NY["Room Type"].unique()
 
 with st.sidebar:
     add_radio = st.radio(
-        "Choose a shipping method",
+        "Choose borough to see details about neighborhoods:",
         (sales_NY["Borough"].unique())
     )
 with st.container():
