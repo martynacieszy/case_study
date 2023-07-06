@@ -63,6 +63,7 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
     mean_sales_n.columns = mean_sales_n.columns.droplevel()
     mean_sales_n.columns = ['Mean price per square ft']
     mean_sales_n = mean_sales_n.sort_values('Mean price per square ft', ascending=False)
+    mean_sales_n['Mean price per square ft'] = mean_sales_n['Mean price per square ft'].round(2)
     fig = px.bar(mean_sales_n, x = "Mean price per square ft", y = mean_sales_n.index, 
               title = "Average price per square feet in apartament and average price of renting of " + str.lower(room_type) + 
                  " in each neighborhood of " + str(borough_name))
@@ -77,6 +78,7 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
     mean_rent_n.columns = mean_rent_n.columns.droplevel()
     mean_rent_n.columns = ['Mean rent price']
     mean_rent_n = mean_rent_n.sort_values('Mean rent price', ascending=False)
+    mean_rent_n['Mean rent price'] = mean_rent_n['Mean rent price'].round(2)
     fig2 = px.scatter(mean_rent_n, x = "Mean rent price", y = mean_rent_n.index, color = "Mean rent price",
                       labels = { "Mean rent price " : "Average rent price per apartament"})
 
