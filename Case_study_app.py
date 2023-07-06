@@ -4,14 +4,22 @@
 # In[ ]:
 
 
-import streamlit as st
-from streamlit_jupyter import StreamlitPatcher, tqdm
 import numpy as np
 import pandas as pd
 import plotly.express as px
 
 sales_NY = pd.read_csv('Property_sales_data_New_York.csv')
 airbnb_NY = pd.read_csv('Airbnb_data_New_York.csv')
+
+sales_NY.head(10)
+
+sales_NY.info()
+
+
+
+airbnb_NY.head(10)
+
+airbnb_NY.info()
 
 sales_NY = sales_NY.drop(columns=['Unnamed: 0'])
 
@@ -213,21 +221,21 @@ def fig_neighborhood_by_brough_rent(airbnb_NY, brough_name):
     return fig
 
 
-
+import streamlit as st
+from streamlit_jupyter import StreamlitPatcher, tqdm
 StreamlitPatcher().jupyter() 
-
-
 
 st.write(""" 
 # My first app 
 Hello *word!*
 """)
 
-st.write(sales_fig)
-
 boroughs = sales_NY["Borough"].unique()
+
+st.write(sales_fig)
 
 for i in boroughs:
     check_i = st.checkbox(i)
     if check_i:
         st.write(fig_neighborhood_by_brough(sales_NY, i))
+
