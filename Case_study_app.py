@@ -56,7 +56,7 @@ def fig_neighborhood_by_brough_rent(airbnb_NY, brough_name):
               title = "Average rent price per apartament in each neighborhood of " + str(brough_name))
     return fig
 
-def average_price(sales_NY, airbnb_NY, borough_name, room_type):
+def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room_type3):
     mean_sales_n = (sales_NY[sales_NY['Borough'] == borough_name][['Neighborhood', 'Price Per Square Ft']]
                     .groupby('Neighborhood')
                     .agg(['mean']))    
@@ -68,7 +68,10 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type):
                  " in each neighborhood of " + str(borough_name))
 
     mean_rent_n = (airbnb_NY.loc[np.logical_and(airbnb_NY['Borough'] == borough_name, 
-                                                airbnb_NY['Room Type'] == room_type)][['Neighborhood', 'Price']]
+                                                np.logical_or.reduce((airbnb_NY['Room Type'] == room_type,
+                                                                     airbnb_NY['Room Type'] == room_type2,
+                                                                     airbnb_NY['Room Type'] == room_type3)))]
+                   [['Neighborhood', 'Price']]
                    .groupby('Neighborhood')
                    .agg(['mean']))
     mean_rent_n.columns = mean_rent_n.columns.droplevel()
@@ -103,11 +106,10 @@ with st.container():
     with col1:
         for i in boroughs:
             check_i = st.checkbox(i)
-            with col2:
                 with st.container():
-                    if check_i:
-                        for j in room_types:
-                            check_j = st.checkbox(j)
-                            if check_j:
-                                st.write(average_price(sales_NY, airbnb_NY, i, j))
+                if check_i:
+                    for j in room_types:
+                        check_j = st.checkbox(j)
+                        if check_j:
+                            st.write(average_price(sales_NY, airbnb_NY, i, j, j, j))
 
