@@ -81,8 +81,11 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
     mean_rent_n['Mean rent price'] = mean_rent_n['Mean rent price'].round(2)
     fig2 = px.scatter(mean_rent_n, x = "Mean rent price", y = mean_rent_n.index, color = "Mean rent price",
                       labels = { "Mean rent price " : "Average rent price per apartament"})
-
-    fig.add_trace(fig2.data[0])
+    try:
+        fig.add_trace(fig2.data[0])
+    except:
+        pass
+        
     return fig
 
 import streamlit as st
