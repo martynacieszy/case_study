@@ -56,6 +56,29 @@ def fig_neighborhood_by_brough_rent(airbnb_NY, brough_name):
               title = "Average rent price per apartament in each neighborhood of " + str(brough_name))
     return fig
 
+def average_price(sales_NY, airbnb_NY, borough_name, room_type):
+    mean_sales_n = (sales_NY[sales_NY['Borough'] == borough_name][['Neighborhood', 'Price Per Square Ft']]
+                    .groupby('Neighborhood')
+                    .agg(['mean']))    
+    mean_sales_n.columns = mean_sales_n.columns.droplevel()
+    mean_sales_n.columns = ['Mean price per square ft']
+    mean_sales_n = mean_sales_n.sort_values('Mean price per square ft', ascending=False)
+    fig = px.bar(mean_sales_n, x = "Mean price per square ft", y = mean_sales_n.index, 
+              title = "Average price per square feet in apartament and average price of renting of " + str.lower(room_type) + 
+                 " in each neighborhood of " + str(borough_name))
+
+    mean_rent_n = (airbnb_NY.loc[np.logical_and(airbnb_NY['Borough'] == borough_name, 
+                                                airbnb_NY['Room Type'] == room_type)][['Neighborhood', 'Price']]
+                   .groupby('Neighborhood')
+                   .agg(['mean']))
+    mean_rent_n.columns = mean_rent_n.columns.droplevel()
+    mean_rent_n.columns = ['Mean rent price']
+    mean_rent_n = mean_rent_n.sort_values('Mean rent price', ascending=False)
+    fig2 = px.scatter(mean_rent_n, x = "Mean rent price", y = mean_rent_n.index, color = "Mean rent price",
+                      labels = { "Mean rent price " : "Average rent price per apartament"})
+
+    fig.add_trace(fig2.data[0])
+    fig.show()
 
 import streamlit as st
 from streamlit_jupyter import StreamlitPatcher, tqdm
@@ -67,11 +90,14 @@ Hello *word!*
 """)
 
 boroughs = sales_NY["Borough"].unique()
+room_types = airbnb_NY["Room Type"].unique()
 
 st.write(sales_fig)
 
 for i in boroughs:
     check_i = st.checkbox(i)
     if check_i:
-        st.write(fig_neighborhood_by_brough(sales_NY, i))
+        for j in room_types:
+            check_j = st.checkbox(j)
+            st.write(average_price(sales_NY, airbnb_NY, i, j))
 
