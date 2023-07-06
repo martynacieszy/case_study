@@ -4,6 +4,7 @@
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import plotly.figure_factory as ff
 import streamlit as st
 from streamlit_jupyter import StreamlitPatcher, tqdm
 
