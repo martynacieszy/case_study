@@ -107,12 +107,17 @@ with st.container():
 boroughs = sales_NY["Borough"].unique()
 room_types = airbnb_NY["Room Type"].unique()
 
+with st.sidebar:
+    add_radio = st.radio(
+        "Choose a shipping method",
+        (sales_NY["Borough"].unique())
+    )
 with st.container():
     with col1:
         for i in boroughs:
-            check_i = st.checkbox(i)
+            
             with st.container():
-                if check_i:
+                if add_radio = i:
                     check_sr = st.checkbox("Shared room")
                     check_pr = st.checkbox("Private room")
                     check_ent = st.checkbox("Entire home/apt")
