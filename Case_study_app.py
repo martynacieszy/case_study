@@ -128,4 +128,6 @@ with st.container():
                             st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", ""))
                     elif check_ent:
                                 st.write(average_price(sales_NY, airbnb_NY, i, "", "", "Entire home/apt"))
+                    else:
+                        st.write(average_price(sales_NY, airbnb_NY, i, "", "", ""))
 
