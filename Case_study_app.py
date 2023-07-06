@@ -18,7 +18,7 @@ mean_sales.columns = ['Mean price per square ft']
 mean_sales = mean_sales.sort_values('Mean price per square ft', ascending=False)
 mean_sales['Mean price per square ft'] = mean_sales['Mean price per square ft'].round(2)
 sales_fig = px.pie(mean_sales, values = "Mean price per square ft", names = mean_sales.index, 
-             title = "Average price per apartament in each district of New York")
+             title = "Average price per square feet in apartment in each district of New York")
 
 def mean_rent_func(airbnb_NY, room_type):
     mean_rent = (airbnb_NY[airbnb_NY['Room Type'] == room_type][['Borough', 'Price']]
