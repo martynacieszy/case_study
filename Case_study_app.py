@@ -110,6 +110,5 @@ with st.container():
                 if check_i:
                     for j in room_types:
                         check_j = st.checkbox(j)
-                        if check_j:
-                            st.write(average_price(sales_NY, airbnb_NY, i, j, j, j))
+                        st.write(average_price(sales_NY, airbnb_NY, i, j, j+1, j+2))
 
