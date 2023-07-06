@@ -1,23 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import numpy as np
 import pandas as pd
 import plotly.express as px
-#
-import statistics
-import dash
-from dash import dcc
-from dash import html
-import dash_bootstrap_components as dbc
-from sklearn.linear_model import LinearRegression
-from pandas_profiling import ProfileReport
-
-
-# In[2]:
+import streamlit as st
+from streamlit_jupyter import StreamlitPatcher, tqdm
 
 
 sales_NY = pd.read_csv('Property_sales_data_New_York.csv')
@@ -66,54 +54,6 @@ mean_sales['mean_price_per_sq_ft'] = mean_sales['median_price_per_sq_ft'].round(
 
 sales_fig = px.pie(mean_sales, values = "mean_price_per_sq_ft", names = mean_sales.index, 
              title = "Average price per apartament in each district of New York")
-sales_fig
-
-
-# In[ ]:
-
-
-NEIGHBORHOOD = list(set(sales_NY['NEIGHBORHOOD']))
-NEIGHBORHOOD.sort()
-
-NEIGHBORHOOD_numeric = {}
-for element in range(0, len(NEIGHBORHOOD)):
-    NEIGHBORHOOD_numeric[NEIGHBORHOOD[element]] = int(element+1)
-
-
-for i in list(NEIGHBORHOOD_numeric.keys()):
-    if NEIGHBORHOOD_numeric[i] > 0 and NEIGHBORHOOD_numeric[i] < len(NEIGHBORHOOD_numeric):
-        sales_NY.loc[sales_NY["NEIGHBORHOOD"] == i, "NEIGHBORHOOD NUMERIC"] = NEIGHBORHOOD_numeric[i]
-
-
-min(sales_NY["NEIGHBORHOOD NUMERIC"])
-
-NEIGHBORHOOD_numeric.keys()
-
-
-X = sales_NY[['BOROUGH',
-       'RESIDENTIAL UNITS', 'COMMERCIAL UNITS', 'TOTAL UNITS',
-       'LAND SQUARE FEET', 'GROSS SQUARE FEET', 'YEAR BUILT',
-       'TAX CLASS AT TIME OF SALE']].copy()
-y = sales_NY["PRICE PER SQUARE FT"].copy()
-
-price_model = LinearRegression()
-price_model = price_model.fit(X,y)
-price_model.score(X,y)
-
-X = sales_NY[['BOROUGH',
-       'RESIDENTIAL UNITS', 'COMMERCIAL UNITS', 'TOTAL UNITS',
-       'LAND SQUARE FEET', 'GROSS SQUARE FEET', 'YEAR BUILT',
-       'TAX CLASS AT TIME OF SALE']].copy()
-
-y = sales_NY["SALE PRICE"].copy()
-
-price_model = LinearRegression()
-price_model = price_model.fit(X,y)
-price_model.score(X,y)
-
-
-# In[9]:
-
 
 airbnb_NY['neighbourhood'] = airbnb_NY['neighbourhood'].str.upper()
 
@@ -226,47 +166,9 @@ def fig_neighborhood_by_brough_rent(brough_name):
     return fig
 
 
-# In[10]:
-
-
-airbnb_NY
-
-
-# In[ ]:
-
-
-neighbourhoods_list
-
-
-# In[ ]:
 
 
 
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-sales_NY1[sales_NY1['BOROUGH NAME'] in np.logical_or("Brooklyn", "Manhattan", "Bronx")]
-
-
-# In[ ]:
-
-
-fig_neighborhood_by_brough("Manhattan")
-
-
-# In[ ]:
-
-
-import ipywidgets as widgets
-from IPython.display import display
 
 dropdown = widgets.Dropdown(
     options=list(set(sales_NY['BOROUGH NAME'])),
@@ -283,94 +185,12 @@ display(dropdown)
 fig_neighborhood_by_brough(dropdown.value)
 
 
-# # Dashboard app
-
-# In[ ]:
-
-
-app = dash.Dash(
-    external_stylesheets=[dbc.themes.BOOTSTRAP]
-)
-
-
-# In[ ]:
-
-
-# APP LAYOUT
-app.layout = html.Div(
-    [
-        dbc.Row(dbc.Col(html.H2("Dash title"))),
-
-        # SECTION 1
-        html.Hr(),
-        dbc.Row(
-            [dbc.Col(
-                html.Div("This is section number 1")
-
-            ),
-            dbc.Col(
-                html.Div("This is section number 11")
-            )
-            ]
-        ),
-
-        html.Hr(),
-        html.Br(),
-
-        # SECTION 2
-        dbc.Row(
-            dbc.Col(
-                html.Div("This is section number 2")
-            )
-
-            )
-
-    ])
-
-
-# In[ ]:
-
-
-app.run_server()
-
-
-# In[ ]:
-
-
-
-
-
-# Streamlit
-
-# In[12]:
-
-
-import streamlit as st
-
-
-# In[ ]:
-
-
-streamlit run C:\Users\marty\anaconda3\lib\site-packages\ipykernel_launcher.py [ARGUMENTS]
-
-
-# In[ ]:
-
+StreamlitPatcher().jupyter() 
 
 st.write(""" 
 # My first app 
 Hello *word!*
 """)
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
 
 
 
