@@ -166,26 +166,6 @@ def fig_neighborhood_by_brough_rent(brough_name):
               title = "Average rent price per apartament in each neighborhood of " + str(brough_name))
     return fig
 
-
-
-
-
-
-dropdown = widgets.Dropdown(
-    options=list(set(sales_NY['BOROUGH NAME'])),
-    value=sales_NY['BOROUGH NAME'][0],
-    description='Brough:',
-    disabled=False,
-)
-display(dropdown)
-
-
-# In[ ]:
-
-
-fig_neighborhood_by_brough(dropdown.value)
-
-
 StreamlitPatcher().jupyter() 
 
 st.write(""" 
