@@ -110,11 +110,8 @@ with st.container():
             check_i = st.checkbox(i)
             with st.container():
                 if check_i:
-                    st.write("--")
-                    check_sr = st.checkbox("Shared room")
-                    st.write("--")
+                    check_sr = st.write("--").checkbox("Shared room")
                     check_pr = st.checkbox("Private room")
-                    st.write("--")
                     check_ent = st.checkbox("Entire home/apt")
                     if check_sr:
                         if check_pr:
