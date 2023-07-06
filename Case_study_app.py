@@ -121,7 +121,7 @@ airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0]
 col1, col2 = st.columns(2)
 with st.container():
     with col1:
-        st.write(sales_fig(sales_NY))
+        st.write(sales_figure(sales_NY))
 
 with st.container():
     with col1:
