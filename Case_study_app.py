@@ -99,5 +99,6 @@ for i in boroughs:
     if check_i:
         for j in room_types:
             check_j = st.checkbox(j)
-            st.write(average_price(sales_NY, airbnb_NY, i, j))
+            if check_j:
+                st.write(average_price(sales_NY, airbnb_NY, i, j))
 
