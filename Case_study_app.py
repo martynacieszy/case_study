@@ -78,7 +78,7 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type):
                       labels = { "Mean rent price " : "Average rent price per apartament"})
 
     fig.add_trace(fig2.data[0])
-    fig.show()
+    return fig
 
 import streamlit as st
 from streamlit_jupyter import StreamlitPatcher, tqdm
