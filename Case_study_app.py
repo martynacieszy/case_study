@@ -83,26 +83,30 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type):
 import streamlit as st
 from streamlit_jupyter import StreamlitPatcher, tqdm
 StreamlitPatcher().jupyter() 
+tab1, tab2, tab3 = st.tabs(3)
 
-st.write(""" 
-# My first app 
-Hello *word!*
-""")
+with tab1:
+    st.write(""" 
+    # My first app 
+    Hello *word!*
+    """)
 
 col1, col2 = st.columns(2)
-with col1:
-    st.write(sales_fig)
+with tab2:
+    with col1:
+        st.write(sales_fig)
 
 boroughs = sales_NY["Borough"].unique()
 room_types = airbnb_NY["Room Type"].unique()
 
-with col1:
-    for i in boroughs:
-        check_i = st.checkbox(i)
-        with col2:
-            if check_i:
-                for j in room_types:
-                    check_j = st.checkbox(j)
-                    if check_j:
-                        st.write(average_price(sales_NY, airbnb_NY, i, j))
+with tab3:
+    with col1:
+        for i in boroughs:
+            check_i = st.checkbox(i)
+            with col2:
+                if check_i:
+                    for j in room_types:
+                        check_j = st.checkbox(j)
+                        if check_j:
+                            st.write(average_price(sales_NY, airbnb_NY, i, j))
 
