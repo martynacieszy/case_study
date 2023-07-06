@@ -113,8 +113,8 @@ with st.sidebar:
         (sales_NY["Borough"].unique())
     )
 
-    area = st.slider("What is the gross square feet area you are interested in buying?", value=[min(sales_NY["Gross Square Feet"]),max(sales_NY["Gross Square Feet"])]
-                     min_value=min(sales_NY["Gross Square Feet"]), max_value=max(sales_NY["Gross Square Feet"]), step=1)
+    area = st.slider("What is the gross square feet area you are interested in buying?", value=[min(sales_NY["Gross Square Feet"]),max(sales_NY["Gross Square Feet"])],
+                     step=1)
 
 
 with st.container():
