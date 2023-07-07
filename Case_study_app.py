@@ -166,7 +166,7 @@ with tab2:
                                        'Gross Square Feet', 
                                        'Year Built', 
                                        'Sale Price', 
-                                       'Price Per Square Ft'], index = False)
+                                       'Price Per Square Ft'])
     for i in range(0,len(chosen_areas)):
         areas_df = areas_df.append(chosen_areas, ignore_index=True)
         col_list = ['Land Square Feet', 'Gross Square Feet', 'Year Built', 'Sale Price', 'Price Per Square Ft']
