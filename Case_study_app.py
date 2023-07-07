@@ -90,10 +90,17 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
         
     return fig
 
+def map_airbnb(airbnb_NY):
+    px.set_mapbox_access_token(open(".mapbox_token").read())
+    df = airbnb_NY
+    fig = px.scatter_mapbox(df, lat="Latitude", lon="Longitude", color="Neighborhood", size="Price", text="Name",
+                          color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10)
+    return fig
+
 import streamlit as st
 from streamlit_jupyter import StreamlitPatcher, tqdm
 StreamlitPatcher().jupyter() 
-tab1, tab2 = st.tabs(["Graphs","Areas comparison"])
+tab1, tab2, tab3 = st.tabs(["Graphs","Areas comparison", "Map of Airbnb places"])
   
 boroughs = sales_NY["Borough"].unique()
 
@@ -191,3 +198,6 @@ with tab2:
         st.write("Choose neighborhoods for comparison in the sidebar.")
     else:
         st.write(areas_df)
+
+with tab3:
+    st.write(map_airbnb(airbnb_NY))
