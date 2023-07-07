@@ -20,7 +20,7 @@ def sales_figure(sales_NY):
     mean_sales = mean_sales.sort_values('Mean price per square ft', ascending=False)
     mean_sales['Mean price per square ft'] = mean_sales['Mean price per square ft'].round(2)
     sales_fig = px.pie(mean_sales, values = "Mean price per square ft", names = mean_sales.index, 
-                 title = "Average price per square feet in apartment in each district of New York")
+                 title = "Figure: Average price per square feet in apartment in each district of New York")
     #sales_figure.update_traces(textinfo='value')
     
     return sales_fig
@@ -33,7 +33,7 @@ def mean_rent_func(airbnb_NY):
     mean_rent = mean_rent.sort_values('Mean rent rate', ascending=False)
     mean_rent['Mean rent rate'] = mean_rent['Mean rent rate'].round(2)
     rent_fig = px.pie(mean_rent, values = "Mean rent rate", names = mean_rent.index, 
-                         title = "Average rent price in each district of New York")
+                         title = "Figure: Average rent price in each district of New York")
     #rent_fig.update_traces(marker={textinfo='value'})
     
     return rent_fig, mean_rent
@@ -47,7 +47,7 @@ def fig_neighborhood_by_brough(sales_NY, brough_name):
     mean_sales_n.columns = ['Mean price per square ft']
     mean_sales_n = mean_sales_n.sort_values('Mean price per square ft', ascending=False)
     fig = px.bar(mean_sales_n, x = "Mean price per square ft", y = mean_sales_n.index,
-              title = "Average price per apartament in each neighborhood of " + str(brough_name))
+              title = "Figure: Average price per apartament in each neighborhood of " + str(brough_name))
     return fig
 
 def fig_neighborhood_by_brough_rent(airbnb_NY, brough_name):
@@ -58,7 +58,7 @@ def fig_neighborhood_by_brough_rent(airbnb_NY, brough_name):
     mean_sales_n.columns = ['Mean rent price']
     mean_sales_n = mean_sales_n.sort_values('Mean rent price', ascending=False)
     fig = px.bar(mean_sales_n, x = "Mean rent price", y = mean_sales_n.index,
-              title = "Average rent price per apartament in each neighborhood of " + str(brough_name))
+              title = "Figure: Average rent price per apartament in each neighborhood of " + str(brough_name))
     return fig
 
 def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room_type3):
@@ -70,7 +70,7 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
     mean_sales_n = mean_sales_n.sort_values('Mean price per square ft', ascending=False)
     mean_sales_n['Mean price per square ft'] = mean_sales_n['Mean price per square ft'].round(2)
     fig = px.bar(mean_sales_n, x = "Mean price per square ft", y = mean_sales_n.index, 
-              title = "Average price per square feet (bar plot) and renting (scatter plot) in each neighborhood of " + str(borough_name))
+              title = "Figure: Average price per square feet (bar plot) and renting (scatter plot) in each neighborhood of " + str(borough_name))
     fig.update_traces(marker={"color":"#FFABAB"})
     
     mean_rent_n = (airbnb_NY.loc[np.logical_and(airbnb_NY['Borough'] == borough_name, 
