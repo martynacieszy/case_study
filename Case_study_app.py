@@ -179,7 +179,7 @@ with tab2:
     for i in set(sales_NY["Neighborhood"]):
         dict_b[i] = sales_NY["Borough"][sales_NY["Neighborhood"] == i].unique()[0]
     areas_df = areas_df.drop_duplicates(subset="Neighborhood")
-    for i in range(0, len(areas_df["Neighborhood"])-1):
+    for i in range(0, len(areas_df["Neighborhood"])):
         areas_df["Borough"].iloc[i] = dict_b[areas_df["Neighborhood"][i]]
 
     st.write(areas_df)
