@@ -182,4 +182,7 @@ with tab2:
     for i in range(0, len(areas_df["Neighborhood"])):
         areas_df["Borough"].iloc[i] = dict_b[areas_df["Neighborhood"][i]]
 
-    st.write(areas_df)
+    if len(chosen_areas) == 0:
+        st.write("Choose neighborhoods for comparison in sidebar")
+    else:
+        st.write(areas_df)
