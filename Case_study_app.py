@@ -121,7 +121,7 @@ airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0]
 
 with tab1:
     with st.expander("Average prices for each borough", expanded=True):
-        st.write(sales_figure(sales_NY))
+        st.plotly_chart(sales_figure(sales_NY), use_container_width=True)
         st.write(mean_rent_func(airbnb_NY)[0])
     
     with st.expander("Average prices for each neighborhood in " + str(add_radio), expanded=True):
