@@ -13,3 +13,5 @@ Basing on two mentioned .json files the Case_study_app.py was launched in Stream
 https://casestudy-drj4kvlwuew.streamlit.app/ 
 
 To see the results it is not necesarry to run all codes, but to visit the Streamlit app from the link.
+
+File .mapbox_token and requirements.txt are needed to run the app.
