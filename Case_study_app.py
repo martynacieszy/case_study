@@ -129,7 +129,7 @@ with st.container():
     with col1:
         st.write(sales_figure(sales_NY))
     with col2:
-        st.write(mean_rent_func(airbnb_NY))
+        st.write(mean_rent_func(airbnb_NY)[0])
 
 with st.container():
     with col1:
