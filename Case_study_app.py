@@ -160,3 +160,26 @@ with tab1:
 
 with tab2:
     st.write("""## Here you can compare up to 10 neighborhoods:""")
+
+    areas_df = pd.DataFrame(columns = ['Borough',
+                                       'Land Square Feet', 
+                                       'Gross Square Feet', 
+                                       'Year Built', 
+                                       'Sale Price', 
+                                       'Price Per Square Ft'])
+    for i in range(0,len(chosen_areas)-1):
+        areas_df = areas_df.append(chosen_areas, ignore_index=True)
+        col_list = ['Land Square Feet', 'Gross Square Feet', 'Year Built', 'Sale Price', 'Price Per Square Ft']
+        describe_df = sales_NY[sales_NY["Neighborhood"] == chosen_areas[i]].describe()[['Land Square Feet', 'Gross Square Feet', 'Year Built',
+           'Sale Price', 'Price Per Square Ft']]
+        for j in col_list:
+            areas_df.loc[areas_df[0] == chosen_areas[i], j] = float(describe_df[describe_df.index == "mean"][j].round(2))
+    areas_df = areas_df.rename(columns={0 : "Neighborhood"})
+    dict_borough = {}
+    for i in set(sales_NY["Neighborhood"]):
+        dict_b[i] = sales_NY["Borough"][sales_NY["Neighborhood"] == i].unique()[0]
+    areas_df = areas_df.drop_duplicates(subset="Neighborhood")
+    for i in range(0, len(areas_df["Neighborhood"])-1):
+        areas_df["Borough"].iloc[i] = dict_b[areas_df["Neighborhood"][i]]
+
+    st.write(areas_df)
