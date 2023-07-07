@@ -165,7 +165,7 @@ with tab2:
                                        'Sale Price', 
                                        'Price Per Square Ft',
                                       'Price Per Rental',
-                                      'Price per Square Ft/Price Per Rental'])
+                                      'Price Per Square Ft/Price Per Rental'])
     for i in range(0,len(chosen_areas)):
         areas_df = areas_df.append(chosen_areas, ignore_index=True)
         col_list = ['Land Square Feet', 'Gross Square Feet', 'Year Built', 'Sale Price', 'Price Per Square Ft']
@@ -185,7 +185,7 @@ with tab2:
         areas_df['Year Built'] = areas_df['Year Built'].astype(str)
         for i in range(0, len(areas_df["Neighborhood"])):
             areas_df["Price Per Rental"].iloc[i] = airbnb_NY[airbnb_NY["Neighborhood"]==areas_df["Neighborhood"].iloc[i]].describe()["Price"]["mean"].round(2)
-        areas_df['Price per Square Ft/Price Per Rental'] = areas_df["Price per Square Ft"]/areas_df["Price Per Rental"]
+        areas_df['Price Per Square Ft/Price Per Rental'] = areas_df["Price Per Square Ft"]/areas_df["Price Per Rental"]
 
     if len(chosen_areas) == 0:
         st.write("Choose neighborhoods for comparison in the sidebar.")
