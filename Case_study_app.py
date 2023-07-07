@@ -127,7 +127,7 @@ with tab1:
         with col2:
             st.write(mean_rent_func(airbnb_NY)[0])
     
-    with st.expander("Average prices for each neighborhood in " + str(add_radio), expanded=True)::
+    with st.expander("Average prices for each neighborhood in " + str(add_radio), expanded=True):
         col1, col2 = st.columns(2)
         with col1:
             for i in boroughs:
