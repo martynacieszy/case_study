@@ -133,7 +133,7 @@ with tab1:
         st.markdown(":red[Mean price per square feet in New York is **" + str(sales_NY.describe()["Price Per Square Ft"]["mean"].round(2)) + "**.]")
 
         st.plotly_chart(sales_figure(sales_NY), use_container_width=True)
-        st.markdown(":red[Average price for rent in New York is " + str(airbnb_NY.describe()["Price"]["mean"].round(2)) + ".]")
+        st.markdown(":red[Average price for rent in New York is **" + str(airbnb_NY.describe()["Price"]["mean"].round(2)) + "**.]")
         st.plotly_chart(mean_rent_func(airbnb_NY)[0], use_container_width=True)
     
     with st.expander("Average prices for each neighborhood in " + str(add_radio), expanded=True):
