@@ -102,7 +102,7 @@ boroughs = sales_NY["Borough"].unique()
 with st.sidebar:
     st.write(""" ## New York estate market analysis: buying and renting an apartment""")
     add_radio = st.radio(
-        "Choose borough to see details about its neighborhoods:",
+        "Choose borough to see details about it:",
         (boroughs)
     )
     
