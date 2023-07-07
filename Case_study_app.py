@@ -100,6 +100,7 @@ tab1, tab2 = st.tabs(["Graphs","Areas comparison"])
 boroughs = sales_NY["Borough"].unique()
 
 with st.sidebar:
+    st.write(""" # New York estate market analysis: buying and renting an apartment""")
     add_radio = st.radio(
         "Choose borough to see details about its neighborhoods:",
         (sales_NY["Borough"].unique())
@@ -117,7 +118,7 @@ with st.sidebar:
 
 sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1])]
 airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0], airbnb_NY["Minimum Nights"] < min_nights[1])]
-st.write(""" # New York estate market analysis: buying and renting an apartment""")
+
 with tab1:
     col1, col2 = st.columns(2)
     with st.container():
