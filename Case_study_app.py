@@ -21,16 +21,17 @@ def sales_figure(sales_NY):
     mean_sales['Mean price per square ft'] = mean_sales['Mean price per square ft'].round(2)
     sales_fig = px.pie(mean_sales, values = "Mean price per square ft", names = mean_sales.index, 
                  title = "Average price per square feet in apartment in each district of New York")
+    sales_figure.update_traces(textinfo='value')
     return sales_fig
 
-def mean_rent_func(airbnb_NY, room_type):
-    mean_rent = (airbnb_NY[airbnb_NY['Room Type'] == room_type][['Borough', 'Price']]
+def mean_rent_func(airbnb_NY):
+    mean_rent = (airbnb_NY[['Borough', 'Price']]
         .groupby('Borough')
         .agg('mean'))
     mean_rent.columns = ['Mean rent rate']
     mean_rent = mean_rent.sort_values('Mean rent rate', ascending=False)
     mean_rent['Mean rent rate'] = mean_rent['Mean rent rate'].round(2)
-
+    rent_fig.update_traces(textinfo='value')
     rent_fig = px.pie(mean_rent, values = "Mean rent rate", names = mean_rent.index, 
                          title = "Average rent price per " + str.lower(room_type) + " in each district of New York")
     
@@ -110,6 +111,11 @@ with st.sidebar:
         (sales_NY["Borough"].unique())
     )
 
+    st.wrtite("Which type of place are you interested in renting?")      
+    check_sr = st.checkbox("Shared room")
+    check_pr = st.checkbox("Private room")
+    check_ent = st.checkbox("Entire home/apt")
+
     area = st.slider("What is the gross square feet area you are interested in buying?", value=[min(sales_NY["Gross Square Feet"]),max(sales_NY["Gross Square Feet"])],
                      step=1)
     min_nights = st.slider("Number of minimum nights to rent a room/apartment:", value=[min(airbnb_NY["Minimum Nights"]),max(airbnb_NY["Minimum Nights"])],
@@ -122,15 +128,14 @@ col1, col2 = st.columns(2)
 with st.container():
     with col1:
         st.write(sales_figure(sales_NY))
+    with col2:
+        st.write(mean_rent_func(airbnb_NY))
 
 with st.container():
     with col1:
         for i in boroughs:
             with st.container():
                 if add_radio == i:
-                    check_sr = st.checkbox("Shared room")
-                    check_pr = st.checkbox("Private room")
-                    check_ent = st.checkbox("Entire home/apt")
                     if check_sr:
                         if check_pr:
                             if check_ent:
