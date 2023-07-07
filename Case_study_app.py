@@ -115,7 +115,9 @@ with st.sidebar:
 
     min_nights = st.slider("Number of minimum nights to rent a room/apartment:", value=[min(airbnb_NY["Minimum Nights"]),max(airbnb_NY["Minimum Nights"])],
                      step=1)
-
+    min_rev = st.slider("Number of minimum reviews from renting of a room/apartment:", value=[min(airbnb_NY["Number Of Reviews"]),max(airbnb_NY["Number Of Reviews"])],
+                     step=1)
+    
     all_neighborhoods = sales_NY["Neighborhood"].unique()
     all_neighborhoods.sort()
     chosen_areas = st.multiselect("Choose neighborhoods for comparison (maximum 10):", all_neighborhoods)
@@ -123,6 +125,7 @@ with st.sidebar:
      
 sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1])]
 airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0], airbnb_NY["Minimum Nights"] < min_nights[1])]
+min_rev = airbnb_NY[np.logical_and(airbnb_NY["Number Of Reviews"] > min_rev[0], airbnb_NY["Number Of Reviews"] < min_rev[1])]
 
 with tab1:
     with st.expander("Average prices for each borough", expanded=True):
