@@ -121,7 +121,7 @@ with st.sidebar:
     
     all_neighborhoods = sales_NY["Neighborhood"].unique()
     all_neighborhoods.sort()
-    chosen_areas = st.multiselect("Choose neighborhoods for comparison (maximum 10):", all_neighborhoods)
+    chosen_areas = st.multiselect("Choose neighborhoods for comparison:", all_neighborhoods)
 
      
 sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1])]
