@@ -174,13 +174,14 @@ with tab2:
            'Sale Price', 'Price Per Square Ft']]
         for j in col_list:
             areas_df.loc[areas_df[0] == chosen_areas[i], j] = float(describe_df[describe_df.index == "mean"][j].round(2))
-    areas_df = areas_df.rename(columns={0 : "Neighborhood"})
-    dict_b = {}
-    for i in set(sales_NY["Neighborhood"]):
-        dict_b[i] = sales_NY["Borough"][sales_NY["Neighborhood"] == i].unique()[0]
-    areas_df = areas_df.drop_duplicates(subset="Neighborhood")
-    for i in range(0, len(areas_df["Neighborhood"])):
-        areas_df["Borough"].iloc[i] = dict_b[areas_df["Neighborhood"][i]]
+    if len(araes_df) > 0:
+        areas_df = areas_df.rename(columns={0 : "Neighborhood"})
+        dict_b = {}
+        for i in set(sales_NY["Neighborhood"]):
+            dict_b[i] = sales_NY["Borough"][sales_NY["Neighborhood"] == i].unique()[0]
+        areas_df = areas_df.drop_duplicates(subset="Neighborhood")
+        for i in range(0, len(areas_df["Neighborhood"])):
+            areas_df["Borough"].iloc[i] = dict_b[areas_df["Neighborhood"][i]]
 
     if len(chosen_areas) == 0:
         st.write("Choose neighborhoods for comparison in sidebar")
