@@ -121,35 +121,30 @@ airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0]
 
 with tab1:
     with st.expander("Average prices for each borough", expanded=True):
-        col1, col2 = st.columns(2)
-        with col1:
-            st.write(sales_figure(sales_NY))
-        with col2:
-            st.write(mean_rent_func(airbnb_NY)[0])
+        st.write(sales_figure(sales_NY))
+        st.write(mean_rent_func(airbnb_NY)[0])
     
     with st.expander("Average prices for each neighborhood in " + str(add_radio), expanded=True):
-        col1, col2 = st.columns(2)
-        with col1:
-            for i in boroughs:
-                with st.container():
-                    if add_radio == i:
-                        if check_sr:
-                            if check_pr:
-                                if check_ent:
-                                    st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", "Entire home/apt"))
-                                else:
-                                    st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", ""))
-                            else:
-                                st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "", ""))
-                        elif check_pr:
+        for i in boroughs:
+            with st.container():
+                if add_radio == i:
+                    if check_sr:
+                        if check_pr:
                             if check_ent:
-                                st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", "Entire home/apt"))
+                                st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", "Entire home/apt"))
                             else:
-                                st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", ""))
-                        elif check_ent:
-                                    st.write(average_price(sales_NY, airbnb_NY, i, "", "", "Entire home/apt"))
+                                st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", ""))
                         else:
-                            st.write(average_price(sales_NY, airbnb_NY, i, "", "", ""))
+                            st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "", ""))
+                    elif check_pr:
+                        if check_ent:
+                            st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", "Entire home/apt"))
+                        else:
+                            st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", ""))
+                    elif check_ent:
+                                st.write(average_price(sales_NY, airbnb_NY, i, "", "", "Entire home/apt"))
+                    else:
+                        st.write(average_price(sales_NY, airbnb_NY, i, "", "", ""))
 
 with tab2:
     st.write("""## Here you can compare up to 10 neighborhoods:""")
