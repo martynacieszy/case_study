@@ -156,7 +156,7 @@ with tab1:
                         st.plotly_chart(average_price(sales_NY, airbnb_NY, i, "", "", ""), use_container_width=True)
 
 with tab2:
-    st.write("""**Here you can compare mean prices from chosen neighborhoods:**""")
+    st.write("""**Here you can compare mean values from chosen neighborhoods:**""")
 
     areas_df = pd.DataFrame(columns = ['Borough',
                                        'Land Square Feet', 
