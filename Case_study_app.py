@@ -175,7 +175,7 @@ with tab2:
         for j in col_list:
             areas_df.loc[areas_df[0] == chosen_areas[i], j] = float(describe_df[describe_df.index == "mean"][j].round(2))
     areas_df = areas_df.rename(columns={0 : "Neighborhood"})
-    dict_borough = {}
+    dict_b = {}
     for i in set(sales_NY["Neighborhood"]):
         dict_b[i] = sales_NY["Borough"][sales_NY["Neighborhood"] == i].unique()[0]
     areas_df = areas_df.drop_duplicates(subset="Neighborhood")
