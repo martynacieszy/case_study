@@ -115,7 +115,7 @@ with st.sidebar:
 
     min_nights = st.slider("Number of minimum nights to rent a room/apartment:", value=[min(airbnb_NY["Minimum Nights"]),max(airbnb_NY["Minimum Nights"])],
                      step=1)
-    chosen_areas = st.multiselect("Choose neighborhoods for comparison (maximum 10):", sales_NY["Neighborhood"].unique())
+    chosen_areas = st.multiselect("Choose neighborhoods for comparison (maximum 10):", sales_NY["Neighborhood"].unique().sort())
 
      
 sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1])]
