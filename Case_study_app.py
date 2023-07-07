@@ -22,7 +22,7 @@ def sales_figure(sales_NY):
     sales_fig = px.pie(mean_sales, values = "Mean price per square ft", names = mean_sales.index, 
                  title = "Average price per square feet in apartment in each district of New York")
     #sales_figure.update_traces(textinfo='value')
-    sales_fig.update_layout(title_font_color="blue")
+    
     return sales_fig
 
 def mean_rent_func(airbnb_NY):
@@ -130,7 +130,8 @@ airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Number Of Reviews"] > min_rev[0]
 
 with tab1:
     with st.expander("Average prices for each borough", expanded=True):
-        st.subheader("*Average price per square feet in New York is " + str(sales_NY.describe()["Price Per Square Ft"]["mean"].round(2)) + ".*")
+        st.markdown(":red[Average price per square feet in New York is " + str(sales_NY.describe()["Price Per Square Ft"]["mean"].round(2)) + ".]")
+
         st.plotly_chart(sales_figure(sales_NY), use_container_width=True)
         st.subheader("*Average price for rent in New York is " + str(airbnb_NY.describe()["Price"]["mean"].round(2)) + ".*")
         st.plotly_chart(mean_rent_func(airbnb_NY)[0], use_container_width=True)
