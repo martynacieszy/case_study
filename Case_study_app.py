@@ -166,7 +166,7 @@ with tab2:
                                        'Gross Square Feet', 
                                        'Year Built', 
                                        'Sale Price', 
-                                       'Price Per Square Ft'])
+                                       'Price Per Square Ft'], index = False)
     for i in range(0,len(chosen_areas)):
         areas_df = areas_df.append(chosen_areas, ignore_index=True)
         col_list = ['Land Square Feet', 'Gross Square Feet', 'Year Built', 'Sale Price', 'Price Per Square Ft']
@@ -182,7 +182,6 @@ with tab2:
         areas_df = areas_df.drop_duplicates(subset="Neighborhood")
         for i in range(0, len(areas_df["Neighborhood"])):
             areas_df["Borough"].iloc[i] = dict_b[areas_df["Neighborhood"][i]]
-        areas_df.style.hide_index()
 
     if len(chosen_areas) == 0:
         st.write("Choose neighborhoods for comparison in the sidebar.")
