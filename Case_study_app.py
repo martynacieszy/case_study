@@ -197,6 +197,7 @@ with tab2:
     if len(chosen_areas) == 0:
         st.write("Choose neighborhoods for comparison in the sidebar.")
     else:
+        areas_df = areas_df.sort()
         areas_df = areas_df.fillna("N/A")
         st.write(areas_df)
 
