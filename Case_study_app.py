@@ -103,24 +103,7 @@ with st.sidebar:
     st.write(""" ## New York estate market analysis: buying and renting an apartment""")
     add_radio = st.radio(
         "Choose borough to see details about its neighborhoods:",
-        (sales_NY["Borough"].unique())
-    )
-    
-    area = st.slider("What is the gross square feet area you are interested in buying?", value=[min(sales_NY["Gross Square Feet"]),max(sales_NY["Gross Square Feet"])],
-                     step=1)
-    st.write("Which type of place are you interested in renting?")      
-    check_sr = st.checkbox("Shared room")
-    check_pr = st.checkbox("Private room")
-    check_ent = st.checkbox("Entire home/apt")
-
-    min_nights = st.slider("Number of minimum nights to rent a room/apartment:", value=[min(airbnb_NY["Minimum Nights"]),max(airbnb_NY["Minimum Nights"])],
-                     step=1)
-boroughs = sales_NY["Borough"].unique()
-
-with st.sidebar:
-    add_radio = st.radio(
-        "Choose borough to see details about its neighborhoods:",
-        (sales_NY["Borough"].unique())
+        (boroughs)
     )
     
     area = st.slider("What is the gross square feet area you are interested in buying?", value=[min(sales_NY["Gross Square Feet"]),max(sales_NY["Gross Square Feet"])],
