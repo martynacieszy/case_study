@@ -111,7 +111,9 @@ with st.sidebar:
         (sales_NY["Borough"].unique())
     )
 
-    st.wrtite("""Which type of place are you interested in renting?""")      
+    st.wrtite("""
+    # Which type of place are you interested in renting?
+    """)      
     check_sr = st.checkbox("Shared room")
     check_pr = st.checkbox("Private room")
     check_ent = st.checkbox("Entire home/apt")
