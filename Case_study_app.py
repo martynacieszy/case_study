@@ -179,7 +179,7 @@ with tab2:
         areas_df = areas_df.drop_duplicates(subset="Neighborhood")
         for i in range(0, len(areas_df["Neighborhood"])):
             areas_df["Borough"].iloc[i] = dict_b[areas_df["Neighborhood"][i]]
-        areas_df['Year Built'] = areas_df['Year Built'].round(0)
+        areas_df['Year Built'] = areas_df['Year Built'].astype(int)
 
     if len(chosen_areas) == 0:
         st.write("Choose neighborhoods for comparison in the sidebar.")
