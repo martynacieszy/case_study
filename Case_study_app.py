@@ -134,20 +134,20 @@ with tab1:
                     if check_sr:
                         if check_pr:
                             if check_ent:
-                                st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", "Entire home/apt"))
+                                st.plotly_chart(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", "Entire home/apt"), use_container_width=True)
                             else:
-                                st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", ""))
+                                st.plotly_chart(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", ""), use_container_width=True)
                         else:
-                            st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "", ""))
+                            st.plotly_chart(average_price(sales_NY, airbnb_NY, i, "Shared room", "", ""), use_container_width=True)
                     elif check_pr:
                         if check_ent:
-                            st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", "Entire home/apt"))
+                            st.plotly_chart(average_price(sales_NY, airbnb_NY, i, "", "Private room", "Entire home/apt"), use_container_width=True)
                         else:
-                            st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", ""))
+                            st.plotly_chart(average_price(sales_NY, airbnb_NY, i, "", "Private room", ""), use_container_width=True)
                     elif check_ent:
-                                st.write(average_price(sales_NY, airbnb_NY, i, "", "", "Entire home/apt"))
+                                st.plotly_chart(average_price(sales_NY, airbnb_NY, i, "", "", "Entire home/apt"), use_container_width=True)
                     else:
-                        st.write(average_price(sales_NY, airbnb_NY, i, "", "", ""))
+                        st.plotly_chart(average_price(sales_NY, airbnb_NY, i, "", "", ""), use_container_width=True)
 
 with tab2:
     st.write("""## Here you can compare up to 10 neighborhoods:""")
