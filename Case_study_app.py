@@ -108,7 +108,7 @@ with st.sidebar:
     
     area = st.slider("What is the gross square feet area you are interested in buying?", value=[min(sales_NY["Gross Square Feet"]),max(sales_NY["Gross Square Feet"])],
                      step=1)
-    st.write("Which type of place are you interested in renting?")      
+    st.write("What type of place are you interested in renting?")      
     check_sr = st.checkbox("Shared room")
     check_pr = st.checkbox("Private room")
     check_ent = st.checkbox("Entire home/apt")
