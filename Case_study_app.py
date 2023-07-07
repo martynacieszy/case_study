@@ -193,12 +193,12 @@ with tab2:
         for i in range(0, len(areas_df["Neighborhood"])):
             areas_df["Price Per Rental"].iloc[i] = airbnb_NY[airbnb_NY["Neighborhood"]==areas_df["Neighborhood"].iloc[i]].describe()["Price"]["mean"].round(2)
         areas_df['Price Per Square Ft/Price Per Rental'] = areas_df["Price Per Square Ft"]/areas_df["Price Per Rental"]
-
-    if len(chosen_areas) == 0:
-        st.write("Choose neighborhoods for comparison in the sidebar.")
-    else:
-        areas_df = areas_df.sort_index()
-        st.dataframe(areas_df, use_container_width=True)
+    with st.container():
+        if len(chosen_areas) == 0:
+            st.write("Choose neighborhoods for comparison in the sidebar.")
+        else:
+            areas_df = areas_df.sort_index()
+            st.dataframe(areas_df, use_container_width=True)
 
 with tab3:
     st.write(map_airbnb(airbnb_NY))
