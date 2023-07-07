@@ -95,14 +95,8 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
 import streamlit as st
 from streamlit_jupyter import StreamlitPatcher, tqdm
 StreamlitPatcher().jupyter() 
-# tab1, tab2, tab3 = st.tabs(["Header","Boroughs","Neighborhoods"])
-
-with st.container():
-    st.write(""" 
-    # My first app 
-    Hello *word!*
-    """)
-    
+tab1, tab2 = st.tabs(["Graphs","Areas comparison"])
+  
 boroughs = sales_NY["Borough"].unique()
 
 with st.sidebar:
@@ -124,31 +118,36 @@ with st.sidebar:
 sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1])]
 airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0], airbnb_NY["Minimum Nights"] < min_nights[1])]
 
-col1, col2 = st.columns(2)
-with st.container():
-    with col1:
-        st.write(sales_figure(sales_NY))
-    with col2:
-        st.write(mean_rent_func(airbnb_NY)[0])
-
-with st.container():
-    with col1:
-        for i in boroughs:
-            with st.container():
-                if add_radio == i:
-                    if check_sr:
-                        if check_pr:
-                            if check_ent:
-                                st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", "Entire home/apt"))
+with tab1:
+    with st.container():
+    st.write(""" 
+    # New York estate market analysis: buying and renting an apartment 
+    """)
+    col1, col2 = st.columns(2)
+    with st.container():
+        with col1:
+            st.write(sales_figure(sales_NY))
+        with col2:
+            st.write(mean_rent_func(airbnb_NY)[0])
+    
+    with st.container():
+        with col1:
+            for i in boroughs:
+                with st.container():
+                    if add_radio == i:
+                        if check_sr:
+                            if check_pr:
+                                if check_ent:
+                                    st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", "Entire home/apt"))
+                                else:
+                                    st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", ""))
                             else:
-                                st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", ""))
-                        else:
-                            st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "", ""))
-                    elif check_pr:
-                        if check_ent:
-                            st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", "Entire home/apt"))
-                        else:
-                            st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", ""))
+                                st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "", ""))
+                        elif check_pr:
+                            if check_ent:
+                                st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", "Entire home/apt"))
+                            else:
+                                st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", ""))
                     elif check_ent:
                                 st.write(average_price(sales_NY, airbnb_NY, i, "", "", "Entire home/apt"))
                     else:
