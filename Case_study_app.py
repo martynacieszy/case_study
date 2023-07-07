@@ -121,7 +121,7 @@ airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0]
 
 with tab1:
     col1, col2 = st.columns(2)
-    with st.container():
+    with st.expander("Average prices for each borough", expanded=TRue):
         with col1:
             st.write(sales_figure(sales_NY))
         with col2:
