@@ -32,7 +32,7 @@ def mean_rent_func(airbnb_NY):
     mean_rent = mean_rent.sort_values('Mean rent rate', ascending=False)
     mean_rent['Mean rent rate'] = mean_rent['Mean rent rate'].round(2)
     rent_fig = px.pie(mean_rent, values = "Mean rent rate", names = mean_rent.index, 
-                         title = "Average rent price per " + str.lower(room_type) + " in each district of New York")
+                         title = "Average rent price in each district of New York")
     #rent_fig.update_traces(marker={textinfo='value'})
     
     return rent_fig, mean_rent
