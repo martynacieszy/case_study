@@ -198,7 +198,6 @@ with tab2:
         st.write("Choose neighborhoods for comparison in the sidebar.")
     else:
         areas_df = areas_df.sort_index()
-        areas_df = areas_df.fillna("N/A")
         st.write(areas_df)
 
 with tab3:
