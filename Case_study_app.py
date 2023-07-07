@@ -120,8 +120,8 @@ sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sale
 airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0], airbnb_NY["Minimum Nights"] < min_nights[1])]
 
 with tab1:
-    col1, col2 = st.columns(2)
     with st.expander("Average prices for each borough", expanded=True):
+        col1, col2 = st.columns(2)
         with col1:
             st.write(sales_figure(sales_NY))
         with col2:
