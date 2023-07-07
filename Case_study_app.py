@@ -117,12 +117,8 @@ with st.sidebar:
 
 sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1])]
 airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0], airbnb_NY["Minimum Nights"] < min_nights[1])]
-
+st.write(""" # New York estate market analysis: buying and renting an apartment""")
 with tab1:
-    with st.container():
-    st.write(""" 
-    # New York estate market analysis: buying and renting an apartment 
-    """)
     col1, col2 = st.columns(2)
     with st.container():
         with col1:
