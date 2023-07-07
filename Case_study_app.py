@@ -20,8 +20,9 @@ def sales_figure(sales_NY):
     mean_sales = mean_sales.sort_values('Mean price per square ft', ascending=False)
     mean_sales['Mean price per square ft'] = mean_sales['Mean price per square ft'].round(2)
     sales_fig = px.pie(mean_sales, values = "Mean price per square ft", names = mean_sales.index, 
-                 title = "Average price per square feet in apartment in each district of New York", title_font_color="blue")
-    #sales_figure.update_traces(marker={"textinfo"='value'})
+                 title = "Average price per square feet in apartment in each district of New York")
+    sales_figure.update_traces(textinfo='value')
+    sales_fig.update_layout(title_font_color="blue")
     return sales_fig
 
 def mean_rent_func(airbnb_NY):
