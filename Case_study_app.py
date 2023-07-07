@@ -100,7 +100,24 @@ tab1, tab2 = st.tabs(["Graphs","Areas comparison"])
 boroughs = sales_NY["Borough"].unique()
 
 with st.sidebar:
-    st.write(""" # New York estate market analysis: buying and renting an apartment""")
+    st.write(""" ## New York estate market analysis: buying and renting an apartment""")
+    add_radio = st.radio(
+        "Choose borough to see details about its neighborhoods:",
+        (sales_NY["Borough"].unique())
+    )
+    
+    area = st.slider("What is the gross square feet area you are interested in buying?", value=[min(sales_NY["Gross Square Feet"]),max(sales_NY["Gross Square Feet"])],
+                     step=1)
+    st.write("Which type of place are you interested in renting?")      
+    check_sr = st.checkbox("Shared room")
+    check_pr = st.checkbox("Private room")
+    check_ent = st.checkbox("Entire home/apt")
+
+    min_nights = st.slider("Number of minimum nights to rent a room/apartment:", value=[min(airbnb_NY["Minimum Nights"]),max(airbnb_NY["Minimum Nights"])],
+                     step=1)
+boroughs = sales_NY["Borough"].unique()
+
+with st.sidebar:
     add_radio = st.radio(
         "Choose borough to see details about its neighborhoods:",
         (sales_NY["Borough"].unique())
@@ -119,34 +136,32 @@ with st.sidebar:
 sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1])]
 airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0], airbnb_NY["Minimum Nights"] < min_nights[1])]
 
-with tab1:
-    col1, col2 = st.columns(2)
-    with st.container():
-        with col1:
-            st.write(sales_figure(sales_NY))
-        with col2:
-            st.write(mean_rent_func(airbnb_NY)[0])
-    
-    with st.container():
-        with col1:
-            for i in boroughs:
-                with st.container():
-                    if add_radio == i:
-                        if check_sr:
-                            if check_pr:
-                                if check_ent:
-                                    st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", "Entire home/apt"))
-                                else:
-                                    st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", ""))
-                            else:
-                                st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "", ""))
-                        elif check_pr:
+col1, col2 = st.columns(2)
+with st.container():
+    with col1:
+        st.write(sales_figure(sales_NY))
+    with col2:
+        st.write(mean_rent_func(airbnb_NY)[0])
+
+with st.container():
+    with col1:
+        for i in boroughs:
+            with st.container():
+                if add_radio == i:
+                    if check_sr:
+                        if check_pr:
                             if check_ent:
-                                st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", "Entire home/apt"))
+                                st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", "Entire home/apt"))
                             else:
-                                st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", ""))
+                                st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "Private room", ""))
+                        else:
+                            st.write(average_price(sales_NY, airbnb_NY, i, "Shared room", "", ""))
+                    elif check_pr:
+                        if check_ent:
+                            st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", "Entire home/apt"))
+                        else:
+                            st.write(average_price(sales_NY, airbnb_NY, i, "", "Private room", ""))
                     elif check_ent:
                                 st.write(average_price(sales_NY, airbnb_NY, i, "", "", "Entire home/apt"))
                     else:
                         st.write(average_price(sales_NY, airbnb_NY, i, "", "", ""))
-
