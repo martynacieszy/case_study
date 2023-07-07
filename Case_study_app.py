@@ -180,6 +180,7 @@ with tab2:
         for i in range(0, len(areas_df["Neighborhood"])):
             areas_df["Borough"].iloc[i] = dict_b[areas_df["Neighborhood"][i]]
         areas_df['Year Built'] = areas_df['Year Built'].astype(int)
+        areas_df['Year Built'] = areas_df['Year Built'].astype(str)
 
     if len(chosen_areas) == 0:
         st.write("Choose neighborhoods for comparison in the sidebar.")
