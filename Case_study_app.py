@@ -151,4 +151,4 @@ with tab1:
                             st.write(average_price(sales_NY, airbnb_NY, i, "", "", ""))
 
 with tab2:
-    st.write("##Here you can compare up to 10 neighborhoods:")
+    st.write("""## Here you can compare up to 10 neighborhoods:""")
