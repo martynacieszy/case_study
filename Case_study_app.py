@@ -201,5 +201,4 @@ with tab2:
             st.dataframe(areas_df, use_container_width=True)
 
 with tab3:
-    with st.container():
-        st.write(map_airbnb(airbnb_NY), use_container_width=True)
+    st.write(map_airbnb(airbnb_NY))
