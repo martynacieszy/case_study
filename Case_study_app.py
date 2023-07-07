@@ -93,7 +93,7 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
 import streamlit as st
 from streamlit_jupyter import StreamlitPatcher, tqdm
 StreamlitPatcher().jupyter() 
-tab1, tab2 = st.tabs(["Graphs","Areas comparison"])
+tab1, tab2, tab3 = st.tabs(["Graphs","Areas comparison", "Map"])
   
 boroughs = sales_NY["Borough"].unique()
 
@@ -191,3 +191,7 @@ with tab2:
         st.write("Choose neighborhoods for comparison in the sidebar.")
     else:
         st.write(areas_df)
+
+
+with tab3:
+    st.map(data=airbnb_NY, zoom=None, use_container_width=True)
