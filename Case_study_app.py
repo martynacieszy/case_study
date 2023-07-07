@@ -124,8 +124,8 @@ with st.sidebar:
 
      
 sales_NY = sales_NY[np.logical_and(sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1])]
-airbnb_NY = airbnb_NY[np.logical_and(np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0], airbnb_NY["Minimum Nights"] < min_nights[1]),
-                      np.logical_and(airbnb_NY["Number Of Reviews"] > min_rev[0], airbnb_NY["Number Of Reviews"] < min_rev[1]))]
+airbnb_NY = airbnb_NY[np.logical_and(np.logical_and(airbnb_NY["Minimum Nights"] > min_nights[0], airbnb_NY["Minimum Nights"] < min_nights[1]))]
+airbnb_NY = airbnb_NY[np.logical_and(airbnb_NY["Number Of Reviews"] > min_rev[0], airbnb_NY["Number Of Reviews"] < min_rev[1])]
 
 with tab1:
     with st.expander("Average prices for each borough", expanded=True):
