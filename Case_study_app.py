@@ -198,7 +198,7 @@ with tab2:
         st.write("Choose neighborhoods for comparison in the sidebar.")
     else:
         areas_df = areas_df.sort_index()
-        st.write(areas_df)
+        st.dataframe(areas_df, use_container_width=True)
 
 with tab3:
     st.write(map_airbnb(airbnb_NY))
