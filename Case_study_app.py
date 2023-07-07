@@ -69,7 +69,7 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
     mean_sales_n = mean_sales_n.sort_values('Mean price per square ft', ascending=False)
     mean_sales_n['Mean price per square ft'] = mean_sales_n['Mean price per square ft'].round(2)
     fig = px.bar(mean_sales_n, x = "Mean price per square ft", y = mean_sales_n.index, 
-              title = "Average price per purshuasing a square feet and renting in each neighborhood of " + str(borough_name))
+              title = "Average price per square feet and renting in each neighborhood of " + str(borough_name))
     fig.update_traces(marker={"color":"#FFABAB"})
     
     mean_rent_n = (airbnb_NY.loc[np.logical_and(airbnb_NY['Borough'] == borough_name, 
