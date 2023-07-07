@@ -174,7 +174,7 @@ with tab2:
            'Sale Price', 'Price Per Square Ft']]
         for j in col_list:
             areas_df.loc[areas_df[0] == chosen_areas[i], j] = float(describe_df[describe_df.index == "mean"][j].round(2))
-    if len(araes_df) > 0:
+    if len(areas_df) > 0:
         areas_df = areas_df.rename(columns={0 : "Neighborhood"})
         dict_b = {}
         for i in set(sales_NY["Neighborhood"]):
