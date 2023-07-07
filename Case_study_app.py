@@ -21,7 +21,7 @@ def sales_figure(sales_NY):
     mean_sales['Mean price per square ft'] = mean_sales['Mean price per square ft'].round(2)
     sales_fig = px.pie(mean_sales, values = "Mean price per square ft", names = mean_sales.index, 
                  title = "Average price per square feet in apartment in each district of New York")
-    sales_figure.update_traces(textinfo='value')
+    sales_figure.update_traces(textinfo='values')
     return sales_fig
 
 def mean_rent_func(airbnb_NY):
@@ -31,9 +31,9 @@ def mean_rent_func(airbnb_NY):
     mean_rent.columns = ['Mean rent rate']
     mean_rent = mean_rent.sort_values('Mean rent rate', ascending=False)
     mean_rent['Mean rent rate'] = mean_rent['Mean rent rate'].round(2)
-    rent_fig.update_traces(textinfo='value')
     rent_fig = px.pie(mean_rent, values = "Mean rent rate", names = mean_rent.index, 
                          title = "Average rent price per " + str.lower(room_type) + " in each district of New York")
+    rent_fig.update_traces(textinfo='values')
     
     return rent_fig, mean_rent
 
@@ -110,14 +110,14 @@ with st.sidebar:
         "Choose borough to see details about its neighborhoods:",
         (sales_NY["Borough"].unique())
     )
-
+    
+    area = st.slider("What is the gross square feet area you are interested in buying?", value=[min(sales_NY["Gross Square Feet"]),max(sales_NY["Gross Square Feet"])],
+                     step=1)
     st.write("Which type of place are you interested in renting?")      
     check_sr = st.checkbox("Shared room")
     check_pr = st.checkbox("Private room")
     check_ent = st.checkbox("Entire home/apt")
 
-    area = st.slider("What is the gross square feet area you are interested in buying?", value=[min(sales_NY["Gross Square Feet"]),max(sales_NY["Gross Square Feet"])],
-                     step=1)
     min_nights = st.slider("Number of minimum nights to rent a room/apartment:", value=[min(airbnb_NY["Minimum Nights"]),max(airbnb_NY["Minimum Nights"])],
                      step=1)
 
