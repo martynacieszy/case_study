@@ -91,7 +91,7 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
     return fig
 
 def map_airbnb(airbnb_NY):
-    px.set_mapbox_access_token(open(".mapbox_token").read())
+    px.set_mapbox_access_token(open("mapbox_token").read())
     df = airbnb_NY
     fig = px.scatter_mapbox(df, lat="Latitude", lon="Longitude", color="Neighborhood", size="Price", text="Name",
                           color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10)
