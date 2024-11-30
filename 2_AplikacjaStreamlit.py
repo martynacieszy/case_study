@@ -132,9 +132,6 @@ with tab1:
                                 sales_NY,
                                 airbnb_NY,
                                 i,
-                                "Shared room",
-                                "Private room",
-                                "Entire home/apt",
                             ),
                             use_container_width=True,
                         )

@@ -41,7 +41,7 @@ def mean_rent_func(airbnb_NY):
     return rent_fig, mean_rent
 
 
-def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room_type3):
+def average_price(sales_NY, airbnb_NY, borough_name):
     mean_sales_n = (
         sales_NY[sales_NY["Borough"] == borough_name][
             ["Neighborhood", "Price Per Square Ft"]
@@ -69,17 +69,8 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
 
     mean_rent_n = (
         airbnb_NY.loc[
-            np.logical_and(
-                airbnb_NY["Borough"] == borough_name,
-                np.logical_or.reduce(
-                    (
-                        airbnb_NY["Room Type"] == room_type,
-                        airbnb_NY["Room Type"] == room_type2,
-                        airbnb_NY["Room Type"] == room_type3,
-                    )
-                ),
-            )
-        ][["Neighborhood", "Price"]]
+            airbnb_NY["Borough"] == borough_name]
+            [["Neighborhood", "Price"]]
         .groupby("Neighborhood")
         .agg(["mean"])
     )
