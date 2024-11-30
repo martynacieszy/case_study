@@ -123,74 +123,20 @@ with tab1:
         "Średnie ceny dla poszczególnych osiedli w dzielnicy " + str(add_radio),
         expanded=True,
     ):
-        for i in boroughs:
-            with st.container():
-                if add_radio == i:
-                    if check_sr:
-                        if check_pr:
-                            if check_ent:
-                                st.plotly_chart(
-                                    average_price(
-                                        sales_NY,
-                                        airbnb_NY,
-                                        i,
-                                        "Shared room",
-                                        "Private room",
-                                        "Entire home/apt",
-                                    ),
-                                    use_container_width=True,
-                                )
-                            else:
-                                st.plotly_chart(
-                                    average_price(
-                                        sales_NY,
-                                        airbnb_NY,
-                                        i,
-                                        "Shared room",
-                                        "Private room",
-                                        "",
-                                    ),
-                                    use_container_width=True,
-                                )
-                        else:
-                            st.plotly_chart(
-                                average_price(
-                                    sales_NY, airbnb_NY, i, "Shared room", "", ""
-                                ),
-                                use_container_width=True,
-                            )
-                    elif check_pr:
-                        if check_ent:
-                            st.plotly_chart(
-                                average_price(
-                                    sales_NY,
-                                    airbnb_NY,
-                                    i,
-                                    "",
-                                    "Private room",
-                                    "Entire home/apt",
-                                ),
-                                use_container_width=True,
-                            )
-                        else:
-                            st.plotly_chart(
-                                average_price(
-                                    sales_NY, airbnb_NY, i, "", "Private room", ""
-                                ),
-                                use_container_width=True,
-                            )
-                    elif check_ent:
+        try:
+            for i in boroughs:
+                with st.container():
+                    if add_radio == i:
                         st.plotly_chart(
                             average_price(
-                                sales_NY, airbnb_NY, i, "", "", "Entire home/apt"
+                                sales_NY,
+                                airbnb_NY,
+                                i
                             ),
                             use_container_width=True,
                         )
-                    else:
-                        st.plotly_chart(
-                            average_price(sales_NY, airbnb_NY, i, "", "", ""),
-                            use_container_width=True,
-                        )
+        except TypeError():
+            print("Wybierz typ pokoju z paska bocznego")
 
 # Zdefiniowanie drugiej zakładki
 with tab2:
