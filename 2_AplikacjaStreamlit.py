@@ -240,10 +240,9 @@ with tab2:
             areas_df["Price Per Square Ft"] / areas_df["Price Per Rental"]
         )
         for i in range(0, len(areas_df["Neighborhood"])):
-            areas_df["Availability 365"].iloc[i] = (
-                airbnb_NY[airbnb_NY["Neighborhood"] == areas_df["Neighborhood"].iloc[i]]
-                .describe()["Availability 365"]["mean"]
-            )
+            areas_df["Availability 365"].iloc[i] = airbnb_NY[
+                airbnb_NY["Neighborhood"] == areas_df["Neighborhood"].iloc[i]
+            ].describe()["Availability 365"]["mean"].astype(int)
 
         areas_df = areas_df.rename(
             columns={
@@ -256,7 +255,7 @@ with tab2:
                 "Price Per Square Ft": "Cena stopy kwadratowej",
                 "Price Per Rental": "Cena wynajmu",
                 "Price Per Square Ft/Price Per Rental": "Cena stopy kwadratowej/Cena wynajmu",
-                "Availability 365": "Ilość dni wynajmu dostępnych w roku",
+                "Availability 365": "Średnia ilość dni wynajmu dostępnych w roku",
             }
         )
     with st.container():
