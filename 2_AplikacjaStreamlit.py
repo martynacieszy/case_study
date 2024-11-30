@@ -69,7 +69,7 @@ with st.sidebar:
         placeholder="Wybierz osiedla",
     )
 
-
+# Filtrowanie ramek danych na podstawie widgetów
 sales_NY = sales_NY[
     np.logical_and(
         sales_NY["Gross Square Feet"] > area[0], sales_NY["Gross Square Feet"] < area[1]
@@ -93,6 +93,14 @@ airbnb_NY = airbnb_NY[
         airbnb_NY["Number Of Reviews"] < min_rev[1],
     )
 ]
+
+if not check_sr:
+    airbnb_NY = airbnb_NY[~airbnb_NY["Room Type"] == "Shared room"]
+if not check_pr:
+    airbnb_NY = airbnb_NY[~airbnb_NY["Room Type"] == "Private room"]
+if not check_ent:
+    airbnb_NY = airbnb_NY[~airbnb_NY["Room Type"] == "Entire home/apt"]
+
 
 # Zdefiniowanie pierwszej zakładki
 with tab1:
