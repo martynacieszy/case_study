@@ -95,11 +95,11 @@ airbnb_NY = airbnb_NY[
 ]
 
 if not check_sr:
-    airbnb_NY = airbnb_NY[~airbnb_NY["Room Type"] == "Shared room"]
+    airbnb_NY = airbnb_NY[~(airbnb_NY["Room Type"] == "Shared room")]
 if not check_pr:
-    airbnb_NY = airbnb_NY[~airbnb_NY["Room Type"] == "Private room"]
+    airbnb_NY = airbnb_NY[~(airbnb_NY["Room Type"] == "Private room")]
 if not check_ent:
-    airbnb_NY = airbnb_NY[~airbnb_NY["Room Type"] == "Entire home/apt"]
+    airbnb_NY = airbnb_NY[~(airbnb_NY["Room Type"] == "Entire home/apt")]
 
 
 # Zdefiniowanie pierwszej zakładki

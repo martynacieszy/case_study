@@ -96,7 +96,7 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
     )
     try:
         fig.add_trace(fig2.data[0])
-    except:
+    except (IndexError(), TypeError()):
         pass
 
     return fig
