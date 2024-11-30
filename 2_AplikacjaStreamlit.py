@@ -3,12 +3,17 @@
 
 import numpy as np
 import pandas as pd
-import plotly.express as px
 import streamlit as st
-from streamlit_jupyter import StreamlitPatcher, tqdm
+from pliki_pomocnicze.funkcje_pomocnicze import (
+    sales_figure,
+    mean_rent_func,
+    average_price,
+    map_airbnb,
+)
+from streamlit_jupyter import StreamlitPatcher
 
 StreamlitPatcher().jupyter()
-from pliki_pomocnicze.funkcje_pomocnicze import *
+
 
 sales_NY = pd.read_json("dane_przeksztalcone/sales_NY.json")
 airbnb_NY = pd.read_json("dane_przeksztalcone/airbnb_NY.json")
@@ -51,7 +56,11 @@ with st.sidebar:
 
     all_neighborhoods = sales_NY["Neighborhood"].unique()
     all_neighborhoods.sort()
-    chosen_areas = st.multiselect("Wybrane osiedla do porównania:", all_neighborhoods, placeholder="Wybierz osiedla")
+    chosen_areas = st.multiselect(
+        "Wybrane osiedla do porównania:",
+        all_neighborhoods,
+        placeholder="Wybierz osiedla",
+    )
 
 
 sales_NY = sales_NY[

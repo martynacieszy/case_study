@@ -2,7 +2,6 @@
 # coding: utf-8
 
 import numpy as np
-import pandas as pd
 import plotly.express as px
 
 
@@ -52,7 +51,9 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
     )
     mean_sales_n.columns = mean_sales_n.columns.droplevel()
     mean_sales_n.columns = ["Średnia cena stopy kwadratowej"]
-    mean_sales_n = mean_sales_n.sort_values("Średnia cena stopy kwadratowej", ascending=False)
+    mean_sales_n = mean_sales_n.sort_values(
+        "Średnia cena stopy kwadratowej", ascending=False
+    )
     mean_sales_n["Średnia cena stopy kwadratowej"] = mean_sales_n[
         "Średnia cena stopy kwadratowej"
     ].round(2)
@@ -60,9 +61,9 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
         mean_sales_n,
         x="Średnia cena stopy kwadratowej",
         y=mean_sales_n.index,
-        labels={"Neighborhood" : "Osiedle"},
+        labels={"Neighborhood": "Osiedle"},
         title="Wykres: Średnia cena stopy kwadratowej (wykres słupkowy) i wynajmu (wykres punktowy)<br>dla każdego z osiedli w dzielnicy "
-        + str(borough_name), 
+        + str(borough_name),
     )
     fig.update_traces(marker={"color": "#FFABAB"})
 
@@ -90,12 +91,12 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
         mean_rent_n,
         x="Średnia cena wynajmu",
         y=mean_rent_n.index,
-        labels={"Neighborhood" : "Osiedle"},
+        labels={"Neighborhood": "Osiedle"},
         color="Średnia cena wynajmu",
     )
     try:
         fig.add_trace(fig2.data[0])
-    except:
+    except (IndexError(), TypeError()):
         pass
 
     return fig
