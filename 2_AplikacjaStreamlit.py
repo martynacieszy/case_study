@@ -243,7 +243,7 @@ with tab2:
             )
         areas_df["Price Per Square Ft/Price Per Rental"] = (
             areas_df["Price Per Square Ft"] / areas_df["Price Per Rental"]
-        )
+        ).round(2)
         for i in range(0, len(areas_df["Neighborhood"])):
             areas_df["Availability 365"].iloc[i] = (
                 airbnb_NY[airbnb_NY["Neighborhood"] == areas_df["Neighborhood"].iloc[i]]
