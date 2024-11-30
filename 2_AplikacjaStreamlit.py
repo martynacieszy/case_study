@@ -3,22 +3,29 @@
 
 import numpy as np
 import pandas as pd
-import plotly.express as px
 import streamlit as st
-from streamlit_jupyter import StreamlitPatcher, tqdm
+from pliki_pomocnicze.funkcje_pomocnicze import (
+    sales_figure,
+    mean_rent_func,
+    average_price,
+    map_airbnb,
+)
+from streamlit_jupyter import StreamlitPatcher
 
 StreamlitPatcher().jupyter()
-from pliki_pomocnicze.funkcje_pomocnicze import *
 
+# Wczytaj przekształcone dane
 sales_NY = pd.read_json("dane_przeksztalcone/sales_NY.json")
 airbnb_NY = pd.read_json("dane_przeksztalcone/airbnb_NY.json")
 
+# Utworzenie trzech zakładek
 tab1, tab2, tab3 = st.tabs(
     ["Wykresy", "Porównanie osiedli", "Mapa z mieszkaniami na wynajem"]
 )
 
 boroughs = sales_NY["Borough"].unique()
 
+# Zdafiniowanie paska bocznego
 with st.sidebar:
     st.write(
         """ ### Analiza rynku nieruchomości w Nowym Jorku: kupno i wynajem mieszkań """
@@ -36,12 +43,17 @@ with st.sidebar:
     check_ent = st.checkbox("Cały dom/apartament", value=True)
 
     min_nights = st.slider(
-        "Minimalna ilość nocny wnajmu obiektu:",
+        "Ilość nocny wnajmu obiektu:",
         value=[min(airbnb_NY["Minimum Nights"]), max(airbnb_NY["Minimum Nights"])],
         step=1,
     )
+    min_avail = st.slider(
+        "Dostepność obiektu w dniach w ciągu roku:",
+        value=[min(airbnb_NY["Availability 365"]), max(airbnb_NY["Availability 365"])],
+        step=1,
+    )
     min_rev = st.slider(
-        "Minimalna ilość recenzji obiektu:",
+        "Ilość recenzji obiektu:",
         value=[
             min(airbnb_NY["Number Of Reviews"]),
             max(airbnb_NY["Number Of Reviews"]),
@@ -51,7 +63,11 @@ with st.sidebar:
 
     all_neighborhoods = sales_NY["Neighborhood"].unique()
     all_neighborhoods.sort()
-    chosen_areas = st.multiselect("Wybrane osiedla do porównania:", all_neighborhoods, placeholder="Wybierz osiedla")
+    chosen_areas = st.multiselect(
+        "Wybrane osiedla do porównania:",
+        all_neighborhoods,
+        placeholder="Wybierz osiedla",
+    )
 
 
 sales_NY = sales_NY[
@@ -67,11 +83,18 @@ airbnb_NY = airbnb_NY[
 ]
 airbnb_NY = airbnb_NY[
     np.logical_and(
+        airbnb_NY["Availability 365"] > min_avail[0],
+        airbnb_NY["Availability 365"] < min_avail[1],
+    )
+]
+airbnb_NY = airbnb_NY[
+    np.logical_and(
         airbnb_NY["Number Of Reviews"] > min_rev[0],
         airbnb_NY["Number Of Reviews"] < min_rev[1],
     )
 ]
 
+# Zdefiniowanie pierwszej zakładki
 with tab1:
     with st.expander("Średnie ceny w poszczególnych dzielnicach", expanded=True):
         st.markdown(
@@ -161,9 +184,11 @@ with tab1:
                             use_container_width=True,
                         )
 
+# Zdefiniowanie drugiej zakładki
 with tab2:
     st.write("""**Tutaj możesz porównać średnie ceny dla wybranych osiedli:**""")
 
+    # Stworzenie ramki danych z porównaniem
     areas_df = pd.DataFrame(
         columns=[
             "Borough",
@@ -174,6 +199,7 @@ with tab2:
             "Price Per Square Ft",
             "Price Per Rental",
             "Price Per Square Ft/Price Per Rental",
+            "Availability 365",
         ]
     )
 
@@ -218,7 +244,33 @@ with tab2:
         areas_df["Price Per Square Ft/Price Per Rental"] = (
             areas_df["Price Per Square Ft"] / areas_df["Price Per Rental"]
         )
+        areas_df["Price Per Square Ft/Price Per Rental"] = areas_df[
+            "Price Per Square Ft/Price Per Rental"
+        ]
+        for i in range(0, len(areas_df["Neighborhood"])):
+            areas_df["Availability 365"].iloc[i] = (
+                airbnb_NY[airbnb_NY["Neighborhood"] == areas_df["Neighborhood"].iloc[i]]
+                .describe()["Availability 365"]["mean"]
+                .astype(int)
+            )
 
+        # Zmiana ukladu kolumn
+        areas_df = areas_df[
+            [
+                "Borough",
+                "Neighborhood",
+                "Land Square Feet",
+                "Gross Square Feet",
+                "Year Built",
+                "Sale Price",
+                "Price Per Square Ft",
+                "Price Per Rental",
+                "Price Per Square Ft/Price Per Rental",
+                "Availability 365",
+            ]
+        ]
+
+        # Przetlumaczenie nazw kolumn na polski
         areas_df = areas_df.rename(
             columns={
                 "Neighborhood": "Osiedle",
@@ -230,6 +282,7 @@ with tab2:
                 "Price Per Square Ft": "Cena stopy kwadratowej",
                 "Price Per Rental": "Cena wynajmu",
                 "Price Per Square Ft/Price Per Rental": "Cena stopy kwadratowej/Cena wynajmu",
+                "Availability 365": "Średnia dostępność wynajmu w roku [dni]",
             }
         )
     with st.container():
@@ -239,5 +292,6 @@ with tab2:
             areas_df = areas_df.sort_index()
             st.dataframe(areas_df, use_container_width=True)
 
+# Zdefiniowanie trzeciej zakładki
 with tab3:
     st.write(map_airbnb(airbnb_NY))
