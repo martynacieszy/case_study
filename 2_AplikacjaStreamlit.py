@@ -26,6 +26,8 @@ tab1, tab2, tab3 = st.tabs(
 )
 
 boroughs = sales_NY["Borough"].unique()
+all_neighborhoods = sales_NY["Neighborhood"].unique()
+borough_neigh_dict = dict(zip(sales_NY['Neighborhood'], sales_NY['Borough']))
 
 # Zdafiniowanie paska bocznego
 with st.sidebar:
@@ -64,7 +66,6 @@ with st.sidebar:
         step=1,
     )
 
-    all_neighborhoods = sales_NY["Neighborhood"].unique()
     all_neighborhoods.sort()
     chosen_areas = st.multiselect(
         "Wybrane osiedla do porównania:",
@@ -163,7 +164,6 @@ with tab2:
         col_list = [
             "Land Square Feet",
             "Gross Square Feet",
-            "Year Built",
             "Sale Price",
             "Price Per Square Ft",
         ]
@@ -171,7 +171,6 @@ with tab2:
             [
                 "Land Square Feet",
                 "Gross Square Feet",
-                "Year Built",
                 "Sale Price",
                 "Price Per Square Ft",
             ]
@@ -182,20 +181,23 @@ with tab2:
             )
     if len(areas_df) > 0:
         areas_df = areas_df.rename(columns={0: "Neighborhood"})
-        dict_b = {}
-        for i in set(sales_NY["Neighborhood"]):
-            dict_b[i] = sales_NY["Borough"][sales_NY["Neighborhood"] == i].unique()[0]
+        dict_b = borough_neigh_dict
         areas_df = areas_df.drop_duplicates(subset="Neighborhood")
         for i in range(0, len(areas_df["Neighborhood"])):
             areas_df["Borough"].iloc[i] = dict_b[areas_df["Neighborhood"][i]]
-        areas_df["Year Built"] = areas_df["Year Built"].astype(int)
-        areas_df["Year Built"] = areas_df["Year Built"].astype(str)
         for i in range(0, len(areas_df["Neighborhood"])):
             areas_df["Price Per Rental"].iloc[i] = (
                 airbnb_NY[airbnb_NY["Neighborhood"] == areas_df["Neighborhood"].iloc[i]]
                 .describe()["Price"]["mean"]
                 .round(2)
             )
+        for i in range(0, len(areas_df["Neighborhood"])):
+            areas_df["Year Built"].iloc[i] = (
+                sales_NY[sales_NY["Neighborhood"] == areas_df["Neighborhood"].iloc[i]]
+                .describe()["Year Built"]["mean"]
+                .astype(int)
+            )
+        #areas_df[areas_df["Year Built"] > 2024]["Year Build"] = None
         areas_df["Price Per Square Ft/Price Per Rental"] = (
             areas_df["Price Per Square Ft"] / areas_df["Price Per Rental"]
         )
@@ -208,6 +210,8 @@ with tab2:
                 .describe()["Availability 365"]["mean"]
                 .astype(int)
             )
+        
+        areas_df[areas_df["Availability 365"] < 0].loc["Availability 365"] = None
 
         # Zmiana ukladu kolumn
         areas_df = areas_df[
