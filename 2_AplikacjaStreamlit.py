@@ -43,7 +43,7 @@ with st.sidebar:
     check_ent = st.checkbox("Cały dom/apartament", value=True)
 
     min_nights = st.slider(
-        "Ilość nocny wnajmu obiektu:",
+        "Ilość nocy wnajmu:",
         value=[min(airbnb_NY["Minimum Nights"]), max(airbnb_NY["Minimum Nights"])],
         step=1,
     )
