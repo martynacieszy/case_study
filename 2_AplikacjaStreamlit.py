@@ -41,12 +41,17 @@ with st.sidebar:
     check_ent = st.checkbox("Cały dom/apartament", value=True)
 
     min_nights = st.slider(
-        "Minimalna ilość nocny wnajmu obiektu:",
+        "Ilość nocny wnajmu obiektu:",
         value=[min(airbnb_NY["Minimum Nights"]), max(airbnb_NY["Minimum Nights"])],
         step=1,
     )
+    min_avail = st.slider(
+        "Dostepność obiektu w dniach w ciągu roku:",
+        value=[min(airbnb_NY["Availability 365"]), max(airbnb_NY["Availability 365"])],
+        step=1,
+    )
     min_rev = st.slider(
-        "Minimalna ilość recenzji obiektu:",
+        "Ilość recenzji obiektu:",
         value=[
             min(airbnb_NY["Number Of Reviews"]),
             max(airbnb_NY["Number Of Reviews"]),
@@ -72,6 +77,12 @@ airbnb_NY = airbnb_NY[
     np.logical_and(
         airbnb_NY["Minimum Nights"] > min_nights[0],
         airbnb_NY["Minimum Nights"] < min_nights[1],
+    )
+]
+airbnb_NY = airbnb_NY[
+    np.logical_and(
+        airbnb_NY["Availability 365"] > min_avail[0],
+        airbnb_NY["Availability 365"] < min_avail[1],
     )
 ]
 airbnb_NY = airbnb_NY[
@@ -227,6 +238,10 @@ with tab2:
         areas_df["Price Per Square Ft/Price Per Rental"] = (
             areas_df["Price Per Square Ft"] / areas_df["Price Per Rental"]
         )
+        for i in range(0, len(areas_df["Neighborhood"])):
+            areas_df["Availability 365"].iloc[i] = airbnb_NY[
+                airbnb_NY["Neighborhood"] == areas_df["Neighborhood"].iloc[i]
+            ]["Availability 365"]
 
         areas_df = areas_df.rename(
             columns={
@@ -239,6 +254,7 @@ with tab2:
                 "Price Per Square Ft": "Cena stopy kwadratowej",
                 "Price Per Rental": "Cena wynajmu",
                 "Price Per Square Ft/Price Per Rental": "Cena stopy kwadratowej/Cena wynajmu",
+                "Availability 365": "Ilość dni wynajmu dostępnych w roku",
             }
         )
     with st.container():
