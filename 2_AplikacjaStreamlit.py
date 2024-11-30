@@ -194,6 +194,7 @@ with tab2:
             "Price Per Square Ft",
             "Price Per Rental",
             "Price Per Square Ft/Price Per Rental",
+            "Availability 365"
         ]
     )
 
