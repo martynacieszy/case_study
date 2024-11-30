@@ -44,6 +44,7 @@ with st.sidebar:
 
     min_nights = st.slider(
         "Ilość nocy wnajmu:",
+
         value=[min(airbnb_NY["Minimum Nights"]), max(airbnb_NY["Minimum Nights"])],
         step=1,
     )
@@ -100,7 +101,6 @@ if not check_pr:
     airbnb_NY = airbnb_NY[~(airbnb_NY["Room Type"] == "Private room")]
 if not check_ent:
     airbnb_NY = airbnb_NY[~(airbnb_NY["Room Type"] == "Entire home/apt")]
-
 
 # Zdefiniowanie pierwszej zakładki
 with tab1:
