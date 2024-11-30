@@ -131,7 +131,10 @@ with tab1:
                             average_price(
                                 sales_NY,
                                 airbnb_NY,
-                                i
+                                i,
+                                "Shared room",
+                                "Private room",
+                                "Entire home/apt",
                             ),
                             use_container_width=True,
                         )
