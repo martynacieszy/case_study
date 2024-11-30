@@ -1,17 +1,18 @@
-# Case study
+# Praca dyplomowa: "Analiza rynku nieruchomości w Nowym Jorku pod kątem inwestycji pod wynajem."
 
-The description of this case study can be found in Data_Analyst_Case v2.docx.
-The source data for the task was stored in: Airbnb_data_New_York.csv, Property_sales_data_New_York.csv, Weather Data.xlsx.
+Opis tej analizy można znaleźć w .
+Dane źródłowe dla zadania zostały zapisane w folderze "dane_zrodlowe": Airbnb_data_New_York.csv, Property_sales_data_New_York.csv.
 
-The case study was devided into two main scripts:
-1. Input_data.ipynb
-2. Case_study_app.py
+Analiza została podzielona na dwa główne skrypty:
+1. 1_PrzygotowanieDanych.ipynb
+2. 2_AplikacjaStreamlit.py
 
-In the first script the source data was read, transformed to dataframe and manipulated to acheive the best data quality. It was conducted using Jupyter Notebook.
-Output from this procedure is stored as sales_NY.json and airbnb_NY.json. Data from Weather Data.xlsx was not used for this study.
-Basing on two mentioned .json files the Case_study_app.py was launched in Streamlit Community Cloud from GitHub executing several functions and resulting in the Streamlit app that can be found on the page: 
-https://casestudy-drj4kvlwuew.streamlit.app/ 
+W pierwszym skrypcie dane źródłowe zostały odczytane, przekształcone do ramki danych i zmanipulowane w celu uzyskania najlepszej jakości danych. Zostało to przeprowadzone przy użyciu Jupyter Notebook.
+Dane wyjściowe z tej procedury są przechowywane w folderze "dane_przeksztalcone" jako sales_NY.json i airbnb_NY.json.
+Na podstawie dwóch wspomnianych plików .json uruchomiono 2_AplikacjaStreamlit.py w Streamlit Community Cloud z GitHub. W aplikacji wykorzystano funkcje z pliku funkcje_pomocnicze.py w folderze pliki_pomocnicze. 
+Stworzona aplikacja Streamlit znajduje się pod adresem:
+https://casestudy-drj4kvlwuew.streamlit.app/
 
-To see the results it is not necesarry to run all codes, but to visit the Streamlit app from the link.
+W celu zobaczenia wyników wystarczy wejść w powyższy link.
 
-File .mapbox_token and requirements.txt are needed to run the app.
+Aby uruchomić aplikację lokalnie należy zainstalować biblioteki z pliku requirements.txt. Plik ten oraz mapbox_token z folderu pliki_pomocnicze, jest niezbędny w repozytorium do uruchomienia aplikacji webowej.
