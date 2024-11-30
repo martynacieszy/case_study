@@ -282,7 +282,7 @@ with tab2:
                 "Price Per Square Ft": "Cena stopy kwadratowej",
                 "Price Per Rental": "Cena wynajmu",
                 "Price Per Square Ft/Price Per Rental": "Cena stopy kwadratowej/Cena wynajmu",
-                "Availability 365": "Dostępność dni wynajmu w roku",
+                "Availability 365": "Średnia dostępność wynajmu w roku [dni]",
             }
         )
     with st.container():
