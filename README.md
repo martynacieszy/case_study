@@ -11,7 +11,7 @@ W pierwszym skrypcie dane źródłowe zostały odczytane, przekształcone do ram
 Dane wyjściowe z tej procedury są przechowywane w folderze "dane_przeksztalcone" jako sales_NY.json i airbnb_NY.json.
 Na podstawie dwóch wspomnianych plików .json uruchomiono 2_AplikacjaStreamlit.py w Streamlit Community Cloud z GitHub. W aplikacji wykorzystano funkcje z pliku funkcje_pomocnicze.py w folderze pliki_pomocnicze. 
 Stworzona aplikacja Streamlit znajduje się pod adresem:
-https://casestudy-3zn2prdh9jmq2vahnvzp8l.streamlit.app/
+https://casestudy-c3khn4jvcemcnsrmh6d8yx.streamlit.app/
 
 W celu zobaczenia wyników wystarczy wejść w powyższy link.
 
