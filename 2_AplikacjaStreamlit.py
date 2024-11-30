@@ -12,6 +12,8 @@ from pliki_pomocnicze.funkcje_pomocnicze import (
 )
 from streamlit_jupyter import StreamlitPatcher
 
+st.set_page_config(layout="wide")
+
 StreamlitPatcher().jupyter()
 
 # Wczytaj przekształcone dane
@@ -118,12 +120,11 @@ with tab1:
             + "**.]"
         )
         st.plotly_chart(mean_rent_func(airbnb_NY)[0], use_container_width=True)
-
-    with st.expander(
-        "Średnie ceny dla poszczególnych osiedli w dzielnicy " + str(add_radio),
-        expanded=True,
-    ):
-        try:
+    try:
+        with st.expander(
+            "Średnie ceny dla poszczególnych osiedli w dzielnicy " + str(add_radio),
+            expanded=True,
+        ):
             for i in boroughs:
                 with st.container():
                     if add_radio == i:
@@ -135,8 +136,8 @@ with tab1:
                             ),
                             use_container_width=True,
                         )
-        except TypeError():
-            print("Wybierz typ pokoju z paska bocznego")
+    except BaseException():
+        print("Wybierz typ pokoju z paska bocznego")
 
 # Zdefiniowanie drugiej zakładki
 with tab2:
@@ -229,14 +230,14 @@ with tab2:
             columns={
                 "Neighborhood": "Osiedle",
                 "Borough": "Dzielnica",
-                "Land Square Feet": "Powierzchnia działki [ft2]",
-                "Gross Square Feet": "Całkowita powierzchnia [ft2]",
+                "Land Square Feet": "Pow. działki [ft2]",
+                "Gross Square Feet": "Całkowita pow. [ft2]",
                 "Year Built": "Rok budowy",
                 "Sale Price": "Cena sprzedaży",
                 "Price Per Square Ft": "Cena stopy kwadratowej",
                 "Price Per Rental": "Cena wynajmu",
                 "Price Per Square Ft/Price Per Rental": "Cena stopy kwadratowej/Cena wynajmu",
-                "Availability 365": "Średnia dostępność wynajmu w roku [dni]",
+                "Availability 365": "Dostępność wynajmu w roku [dni]",
             }
         )
     with st.container():
@@ -244,7 +245,7 @@ with tab2:
             st.write("Wybierz osiedla do porównania z menu bocznego.")
         else:
             areas_df = areas_df.sort_index()
-            st.dataframe(areas_df, use_container_width=True)
+            st.dataframe(areas_df, use_container_width=True, hide_index=True, height=500)
 
 # Zdefiniowanie trzeciej zakładki
 with tab3:
