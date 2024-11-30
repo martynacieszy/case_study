@@ -23,25 +23,25 @@ with st.sidebar:
     st.write(
         """ ### Analiza rynku nieruchomości w Nowym Jorku: kupno i wynajem mieszkań """
     )
-    add_radio = st.radio("Wybierz dzielnicę:", (boroughs))
+    add_radio = st.radio("Dzielnica:", (boroughs))
 
     area = st.slider(
-        "Powierzchnia lokalu w stopach kwadratowych:",
+        "Powierzchnia lokalu na sprzedaż (w stopach kwadratowych):",
         value=[min(sales_NY["Gross Square Feet"]), max(sales_NY["Gross Square Feet"])],
         step=1,
     )
-    st.write("Typ miejsca:")
-    check_sr = st.checkbox("Pokój współdzielony")
+    st.write("Rodzaj obiektu na wynajem:")
+    check_sr = st.checkbox("Pokój współdzielony", value=True)
     check_pr = st.checkbox("Pokój prywatny", value=True)
     check_ent = st.checkbox("Cały dom/apartament", value=True)
 
     min_nights = st.slider(
-        "Minimalna ilość nocny wnajmu lokalu:",
+        "Minimalna ilość nocny wnajmu obiektu:",
         value=[min(airbnb_NY["Minimum Nights"]), max(airbnb_NY["Minimum Nights"])],
         step=1,
     )
     min_rev = st.slider(
-        "Minimalna ilość recenzji lokalu:",
+        "Minimalna ilość recenzji obiektu:",
         value=[
             min(airbnb_NY["Number Of Reviews"]),
             max(airbnb_NY["Number Of Reviews"]),
@@ -51,7 +51,7 @@ with st.sidebar:
 
     all_neighborhoods = sales_NY["Neighborhood"].unique()
     all_neighborhoods.sort()
-    chosen_areas = st.multiselect("Wybierz osiedle do porównania:", all_neighborhoods)
+    chosen_areas = st.multiselect("Wybrane osiedla do porównania:", all_neighborhoods, placeholder="Wybierz osiedla")
 
 
 sales_NY = sales_NY[
@@ -89,7 +89,7 @@ with tab1:
         st.plotly_chart(mean_rent_func(airbnb_NY)[0], use_container_width=True)
 
     with st.expander(
-        "Średnie ceny dla każdego z osiedli w dzielnicy " + str(add_radio),
+        "Średnie ceny dla poszczególnych osiedli w dzielnicy " + str(add_radio),
         expanded=True,
     ):
         for i in boroughs:

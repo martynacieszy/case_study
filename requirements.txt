@@ -5,10 +5,10 @@ pandas-profiling==3.0.0
 plotly==5.5.0
 plotly-express==0.4.1
 py==1.10.0
-pyarrow==4.0.0
+pyarrow==6.0.0
 pycodestyle==2.7.0
 pycosat==0.6.3
-streamlit==1.22.0
+streamlit==1.25.0
 fastcore==1.5.29 
 ipywidgets==7.7.2 
 stqdm==0.0.5 

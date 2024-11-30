@@ -35,9 +35,9 @@ def mean_rent_func(airbnb_NY):
         mean_rent,
         values="Mean rent rate",
         names=mean_rent.index,
-        title="Figure: Average rent price in each district of New York",
+        title="Wykres: Średnia cena wynajmu w poszczególnych dzielnicach Nowego Jorku",
     )
-    # rent_fig.update_traces(marker={textinfo='value'})
+    rent_fig.update_traces(textinfo="value")
 
     return rent_fig, mean_rent
 
@@ -51,17 +51,18 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
         .agg(["mean"])
     )
     mean_sales_n.columns = mean_sales_n.columns.droplevel()
-    mean_sales_n.columns = ["Mean price per square ft"]
-    mean_sales_n = mean_sales_n.sort_values("Mean price per square ft", ascending=False)
-    mean_sales_n["Mean price per square ft"] = mean_sales_n[
-        "Mean price per square ft"
+    mean_sales_n.columns = ["Średnia cena stopy kwadratowej"]
+    mean_sales_n = mean_sales_n.sort_values("Średnia cena stopy kwadratowej", ascending=False)
+    mean_sales_n["Średnia cena stopy kwadratowej"] = mean_sales_n[
+        "Średnia cena stopy kwadratowej"
     ].round(2)
     fig = px.bar(
         mean_sales_n,
-        x="Mean price per square ft",
+        x="Średnia cena stopy kwadratowej",
         y=mean_sales_n.index,
-        title="Figure: Average price per square feet (bar plot) and renting (scatter plot) in each neighborhood of "
-        + str(borough_name),
+        labels={"Neighborhood" : "Osiedle"},
+        title="Wykres: Średnia cena stopy kwadratowej (wykres słupkowy) i wynajmu (wykres punktowy)<br>dla każdego z osiedli w dzielnicy "
+        + str(borough_name), 
     )
     fig.update_traces(marker={"color": "#FFABAB"})
 
@@ -82,15 +83,15 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
         .agg(["mean"])
     )
     mean_rent_n.columns = mean_rent_n.columns.droplevel()
-    mean_rent_n.columns = ["Mean rent price"]
-    mean_rent_n = mean_rent_n.sort_values("Mean rent price", ascending=False)
-    mean_rent_n["Mean rent price"] = mean_rent_n["Mean rent price"].round(2)
+    mean_rent_n.columns = ["Średnia cena wynajmu"]
+    mean_rent_n = mean_rent_n.sort_values("Średnia cena wynajmu", ascending=False)
+    mean_rent_n["Średnia cena wynajmu"] = mean_rent_n["Średnia cena wynajmu"].round(2)
     fig2 = px.scatter(
         mean_rent_n,
-        x="Mean rent price",
+        x="Średnia cena wynajmu",
         y=mean_rent_n.index,
-        color="Mean rent price",
-        labels={"Mean rent price ": "Average rent price per apartament"},
+        labels={"Neighborhood" : "Osiedle"},
+        color="Średnia cena wynajmu",
     )
     try:
         fig.add_trace(fig2.data[0])
@@ -101,7 +102,7 @@ def average_price(sales_NY, airbnb_NY, borough_name, room_type, room_type2, room
 
 
 def map_airbnb(airbnb_NY):
-    px.set_mapbox_access_token(open("mapbox_token").read())
+    px.set_mapbox_access_token(open("pliki_pomocnicze/mapbox_token").read())
     df = airbnb_NY
     fig = px.scatter_mapbox(
         df,
