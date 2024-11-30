@@ -8,10 +8,10 @@ import streamlit as st
 from streamlit_jupyter import StreamlitPatcher, tqdm
 
 StreamlitPatcher().jupyter()
-from helper_functions import *
+from pliki_pomocnicze.funkcje_pomocnicze import *
 
-sales_NY = pd.read_json("sales_NY.json")
-airbnb_NY = pd.read_json("airbnb_NY.json")
+sales_NY = pd.read_json("dane_przeksztalcone/sales_NY.json")
+airbnb_NY = pd.read_json("dane_przeksztalcone/airbnb_NY.json")
 
 tab1, tab2, tab3 = st.tabs(
     ["Wykresy", "Porównanie osiedli", "Mapa z mieszkaniami na wynajem"]
