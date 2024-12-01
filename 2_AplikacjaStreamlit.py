@@ -32,7 +32,21 @@ with st.sidebar:
     st.write(
         """ ### Analiza rynku nieruchomości w Nowym Jorku: kupno i wynajem mieszkań """
     )
-    add_radio = st.radio("Dzielnica:", (boroughs))
+    #add_radio = st.radio("Dzielnica:", (boroughs))
+    st.write("Dzielnica:")
+    Manhattan = st.checkbox("Manhattan", value=True)
+    Bronx = st.checkbox("Bronx", value=True)
+    Brooklyn = st.checkbox("Brooklyn", value=True)
+    Queens = st.checkbox("Queens", value=True)
+    Staten_Island= st.checkbox("Staten Island", value=True)
+
+
+    boroughs_checkbox = {"Manhattan" : Manhattan,
+                         "Bronx" : Bronx,
+                         "Brooklyn" : Brooklyn,
+                         "Queens" : Queens,
+                         "Staten Island" : Staten_Island,
+                         }
 
     area = st.slider(
         "Powierzchnia lokalu na sprzedaż (w stopach kwadratowych):",
@@ -124,24 +138,20 @@ with tab1:
         st.plotly_chart(mean_rent_func(airbnb_NY)[0], use_container_width=True)
 
     # Expander z wykresem średnich cen w poszczególnych osiedlach
-    try:
-        with st.expander(
-            "Średnie ceny dla poszczególnych osiedli w dzielnicy " + str(add_radio),
-            expanded=True,
-        ):
-            for i in boroughs:
-                with st.container():
-                    if add_radio == i:
-                        st.plotly_chart(
-                            average_price(
-                                sales_NY,
-                                airbnb_NY,
-                                i,
-                            ),
-                            use_container_width=True,
-                        )
-    except:
-        pass
+    for i in boroughs_checkbox:
+        if boroughs_checkbox[i]:
+            with st.expander(
+                "Średnie ceny dla poszczególnych osiedli w dzielnicy " + i,
+                expanded=True,
+            ):
+                st.plotly_chart(
+                    average_price(
+                        sales_NY,
+                        airbnb_NY,
+                        i,
+                    ),
+                    use_container_width=True,
+                )
 
     # Expander z ramką danych do porównania osiedli
     with st.expander(
