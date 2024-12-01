@@ -67,9 +67,7 @@ def average_price(sales_NY, airbnb_NY, borough_name):
     fig.update_traces(marker={"color": "#FFABAB"})
 
     mean_rent_n = (
-        airbnb_NY.loc[
-            airbnb_NY["Borough"] == borough_name]
-            [["Neighborhood", "Price"]]
+        airbnb_NY.loc[airbnb_NY["Borough"] == borough_name][["Neighborhood", "Price"]]
         .groupby("Neighborhood")
         .agg(["mean"])
     )
@@ -105,5 +103,19 @@ def map_airbnb(airbnb_NY):
         color_continuous_scale=px.colors.cyclical.IceFire,
         size_max=15,
         zoom=10,
+        height=700,
     )
+    names = {
+        "Latitude": "Szerokość geograficzna",
+        "Longitude": "Długość geograficzna",
+        "Neighborhood": "Osiedle",
+        "Price": "Cena wynajmu",
+        "Name": "Nazwa obiektu",
+    }
+    for i in names:
+        fig.for_each_trace(
+            lambda t: t.update(hovertemplate=t.hovertemplate.replace(i, names[i]))
+        )
+    fig.update_layout(legend_title_text=names["Neighborhood"])
+
     return fig
