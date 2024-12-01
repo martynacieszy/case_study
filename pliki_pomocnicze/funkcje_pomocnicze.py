@@ -65,6 +65,7 @@ def average_price(sales_NY, airbnb_NY, borough_name):
         + str(borough_name),
     )
     fig.update_traces(marker={"color": "#FFABAB"})
+    fig.update_layout(xaxis_title='Średnia cena stopy kwadratowej', yaxis_title='Osiedle')
 
     mean_rent_n = (
         airbnb_NY.loc[airbnb_NY["Borough"] == borough_name][["Neighborhood", "Price"]]
@@ -82,6 +83,7 @@ def average_price(sales_NY, airbnb_NY, borough_name):
         labels={"Neighborhood": "Osiedle"},
         color="Średnia cena wynajmu",
     )
+
     try:
         fig.add_trace(fig2.data[0])
     except:
