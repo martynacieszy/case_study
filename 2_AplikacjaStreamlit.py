@@ -62,9 +62,11 @@ with st.sidebar:
             "14 Rentals - 4-10 Unit",
         ],
     )
-    
+
     if len(chosen_building_types) != 0:
-        sales_NY = sales_NY[sales_NY["Building Class Category"].isin(chosen_building_types)]
+        sales_NY = sales_NY[
+            sales_NY["Building Class Category"].isin(chosen_building_types)
+        ]
 
     area = st.slider(
         "Powierzchnia lokalu na sprzedaż (w stopach kwadratowych):",
@@ -298,4 +300,17 @@ with tab1:
 
 # Zdefiniowanie trzeciej zakładki
 with tab2:
+    cena_zakres = st.slider(
+        "Cena za wynajem:",
+        value=[min(airbnb_NY["Price"]), max(airbnb_NY["Price"])],
+        step=1,
+    )
+
+    airbnb_NY = airbnb_NY[
+        np.logical_and(
+            airbnb_NY["Price"] > cena_zakres[0],
+            airbnb_NY["Price"] < cena_zakres[1],
+        )
+    ]
+
     st.plotly_chart(map_airbnb(airbnb_NY), use_container_width=True)

@@ -65,7 +65,9 @@ def average_price(sales_NY, airbnb_NY, borough_name):
         + str(borough_name),
     )
     fig.update_traces(marker={"color": "#FFABAB"})
-    fig.update_layout(xaxis_title='Średnia cena stopy kwadratowej', yaxis_title='Osiedle')
+    fig.update_layout(
+        xaxis_title="Średnia cena stopy kwadratowej", yaxis_title="Osiedle"
+    )
 
     mean_rent_n = (
         airbnb_NY.loc[airbnb_NY["Borough"] == borough_name][["Neighborhood", "Price"]]
@@ -105,7 +107,7 @@ def map_airbnb(airbnb_NY):
         color_continuous_scale=px.colors.cyclical.IceFire,
         size_max=15,
         zoom=10,
-        height=700,
+        height=650,
     )
     names = {
         "Latitude": "Szerokość geograficzna",
