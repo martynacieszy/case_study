@@ -59,8 +59,8 @@ def average_price(sales_NY, airbnb_NY, borough_name):
     fig = px.bar(
         mean_sales_n,
         x="Średnia cena stopy kwadratowej",
-        y="Osiedle",
-        #labels={"Neighborhood": "Osiedle"},
+        y=mean_sales_n.index,
+        labels={"Neighborhood": "Osiedle"},
         title="Wykres: Średnia cena stopy kwadratowej (wykres słupkowy) i wynajmu (wykres punktowy)<br>dla każdego z osiedli w dzielnicy "
         + str(borough_name),
     )

@@ -32,21 +32,39 @@ with st.sidebar:
     st.write(
         """ ### Analiza rynku nieruchomości w Nowym Jorku: kupno i wynajem mieszkań """
     )
-    #add_radio = st.radio("Dzielnica:", (boroughs))
     st.write("Dzielnica:")
     Manhattan = st.checkbox("Manhattan", value=True)
     Bronx = st.checkbox("Bronx", value=True)
     Brooklyn = st.checkbox("Brooklyn", value=True)
     Queens = st.checkbox("Queens", value=True)
-    Staten_Island= st.checkbox("Staten Island", value=True)
+    Staten_Island = st.checkbox("Staten Island", value=True)
 
+    boroughs_checkbox = {
+        "Manhattan": Manhattan,
+        "Bronx": Bronx,
+        "Brooklyn": Brooklyn,
+        "Queens": Queens,
+        "Staten Island": Staten_Island,
+    }
 
-    boroughs_checkbox = {"Manhattan" : Manhattan,
-                         "Bronx" : Bronx,
-                         "Brooklyn" : Brooklyn,
-                         "Queens" : Queens,
-                         "Staten Island" : Staten_Island,
-                         }
+    building_types = list(sales_NY["Building Class Category"].unique())
+    chosen_building_types = st.multiselect(
+        "Wybrane typ obiektu do kupienia:",
+        building_types,
+        placeholder="Wybierz typ obiektu",
+        default=[
+            "01 One Family Dwellings",
+            "02 Two Family Dwellings",
+            "03 Three Family Dwellings",
+            "07 Rentals - Walkup Apartments",
+            "08 Rentals - Elevator Apartments",
+            "09 Coops - Walkup Apartments",
+            "14 Rentals - 4-10 Unit",
+        ],
+    )
+    
+    if len(chosen_building_types) != 0:
+        sales_NY = sales_NY[sales_NY["Building Class Category"].isin(chosen_building_types)]
 
     area = st.slider(
         "Powierzchnia lokalu na sprzedaż (w stopach kwadratowych):",
@@ -83,6 +101,7 @@ with st.sidebar:
         all_neighborhoods,
         placeholder="Wybierz osiedla",
     )
+
 
 # Filtrowanie ramek danych na podstawie widgetów
 sales_NY = sales_NY[
