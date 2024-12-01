@@ -137,8 +137,8 @@ with tab1:
                             ),
                             use_container_width=True,
                         )
-    except BaseException():
-        print("Wybierz typ pokoju z paska bocznego")
+    except:
+        pass
 
 # Zdefiniowanie drugiej zakładki
 with tab2:
@@ -156,6 +156,7 @@ with tab2:
             "Price Per Rental",
             "Price Per Square Ft/Price Per Rental",
             "Availability 365",
+            "Price Per Rental*Availability 365"
         ]
     )
 
@@ -195,9 +196,8 @@ with tab2:
             areas_df["Year Built"].iloc[i] = (
                 sales_NY[sales_NY["Neighborhood"] == areas_df["Neighborhood"].iloc[i]]
                 .describe()["Year Built"]["mean"]
-                .astype(int)
+                .round()
             )
-        #areas_df[areas_df["Year Built"] > 2024]["Year Build"] = None
         areas_df["Price Per Square Ft/Price Per Rental"] = (
             areas_df["Price Per Square Ft"] / areas_df["Price Per Rental"]
         )
@@ -208,10 +208,11 @@ with tab2:
             areas_df["Availability 365"].iloc[i] = (
                 airbnb_NY[airbnb_NY["Neighborhood"] == areas_df["Neighborhood"].iloc[i]]
                 .describe()["Availability 365"]["mean"]
-                .astype(int)
+                .round()
             )
-        
-        areas_df[areas_df["Availability 365"] < 0].loc["Availability 365"] = None
+        areas_df["Price Per Rental*Availability 365"] = (
+            areas_df["Price Per Rental"] * areas_df["Availability 365"]
+        )
 
         # Zmiana ukladu kolumn
         areas_df = areas_df[
@@ -226,6 +227,7 @@ with tab2:
                 "Price Per Rental",
                 "Price Per Square Ft/Price Per Rental",
                 "Availability 365",
+                "Price Per Rental*Availability 365"
             ]
         ]
 
@@ -242,6 +244,7 @@ with tab2:
                 "Price Per Rental": "Cena wynajmu",
                 "Price Per Square Ft/Price Per Rental": "Cena stopy kwadratowej/Cena wynajmu",
                 "Availability 365": "Dostępność wynajmu w roku [dni]",
+                "Price Per Rental*Availability 365": "Cena wynajmu*Dostępność"
             }
         )
     with st.container():
