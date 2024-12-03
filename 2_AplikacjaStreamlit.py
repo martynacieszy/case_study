@@ -147,7 +147,6 @@ with tab1:
             + str(sales_NY.describe()["Price Per Square Ft"]["mean"].round(2))
             + "**.]"
         )
-
         st.plotly_chart(sales_figure(sales_NY), use_container_width=True)
 
         # Średnie ceny wynajmu
