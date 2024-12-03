@@ -298,7 +298,7 @@ with tab1:
                     areas_df, use_container_width=True, hide_index=True, height=500
                 )
 
-# Zdefiniowanie trzeciej zakładki
+# Zdefiniowanie drugiej zakładki
 with tab2:
     cena_zakres = st.slider(
         "Cena za wynajem:",
