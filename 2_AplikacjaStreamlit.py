@@ -27,7 +27,7 @@ boroughs = sales_NY["Borough"].unique()
 all_neighborhoods = sales_NY["Neighborhood"].unique()
 borough_neigh_dict = dict(zip(sales_NY["Neighborhood"], sales_NY["Borough"]))
 
-# Zdafiniowanie paska bocznego
+# Zdefiniowanie paska bocznego
 with st.sidebar:
     st.write(
         """ ### Analiza rynku nieruchomości w Nowym Jorku: kupno i wynajem """
