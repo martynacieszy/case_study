@@ -30,7 +30,7 @@ borough_neigh_dict = dict(zip(sales_NY["Neighborhood"], sales_NY["Borough"]))
 # Zdafiniowanie paska bocznego
 with st.sidebar:
     st.write(
-        """ ### Analiza rynku nieruchomości w Nowym Jorku: kupno i wynajem mieszkań """
+        """ ### Analiza rynku nieruchomości w Nowym Jorku: kupno i wynajem """
     )
     st.write("Dzielnica:")
     Manhattan = st.checkbox("Manhattan", value=True)
